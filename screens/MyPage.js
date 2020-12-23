@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import {View, Text, StyleSheet, ScrollView, Button} from 'react-native';
+import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import Coupon from '../components/Coupon';
 import DrawerLayout from '../components/DrawerLayout';
 import Header from '../components/Header';
 import Information from '../components/Information';
 import Login from '../components/Login';
 
-const MyPageScreens = ({ openDrawer }) => {
+const MyPageScreens = ({openDrawer}) => {
+  const navigation = useNavigation();
   return (
     <>
       <Header title={'마이페이지'} openDrawer={openDrawer} />
@@ -19,8 +22,6 @@ const MyPageScreens = ({ openDrawer }) => {
 };
 
 function MyPage() {
-  const user = useSelector((state) => state.user);
-  console.log(user);
   return (
     <>
       <DrawerLayout Component={MyPageScreens} />

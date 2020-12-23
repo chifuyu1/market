@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -9,24 +9,38 @@ import {
   Image,
   Button,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 import {
+  googleLoginRequest,
+  googleLogoutRequest,
   kakaoLoginRequest,
   kakaoLogoutRequest,
-  googleLoginRequest,
 } from '../reducer/user';
 
 function Login() {
-  const user = useSelector((state) => state.user);
+  const account = useSelector((state) => state.user.account);
   const dispatch = useDispatch();
-  const googleLogin = useCallback(() => dispatch(googleLoginRequest()));
-  const kakaoLogin = useCallback(() => dispatch(kakaoLoginRequest()));
-  const kakaoLogout = useCallback(() => dispatch(kakaoLogoutRequest()));
-  console.log(user);
+  const navigation = useNavigation();
+  const moveCoupon = useCallback(() => navigation.navigate('Coupon'), [
+    navigation,
+  ]);
+  const googleLogin = useCallback(() => dispatch(googleLoginRequest()), [
+    dispatch,
+  ]);
+  const googleLogout = useCallback(() => dispatch(googleLogoutRequest()), [
+    dispatch,
+  ]);
+  const kakaoLogin = useCallback(() => dispatch(kakaoLoginRequest()), [
+    dispatch,
+  ]);
+  const kakaoLogout = useCallback(() => dispatch(kakaoLogoutRequest()), [
+    dispatch,
+  ]);
 
   return (
     <>
-      {user.account === null ? (
+      {!account ? (
         <>
           <View style={styles.container}>
             <View>
@@ -52,13 +66,16 @@ function Login() {
                   source={require(`../assets/kakao.png`)}
                 />
               </TouchableHighlight>
-              <Button onPress={kakaoLogout} title="카카오 로그아웃" />
             </View>
           </View>
         </>
       ) : (
         <View>
-          <Text>로그인 되어있습니다.{user.account}</Text>
+          <Button onPress={googleLogout} title="구글 로그아웃" />
+          <Text>fff</Text>
+          <Button onPress={kakaoLogout} title="카카오 로그아웃" />
+          <Text>fff</Text>
+          <Button onPress={moveCoupon} title="쿠폰 보기" />
         </View>
       )}
     </>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -14,61 +14,21 @@ import {
 } from 'react-native';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useDispatch } from 'react-redux';
-import { priceComma } from '../util/price';
+import {useDispatch} from 'react-redux';
+import {priceComma} from '../util/price';
 
-export function CouponPopup({ setVisible }) {
-  const money = [100000, 60000, 20000, 10000, 4000, 3000, 1000, 500];
-  return (
-    <>
-      <View style={styles.modalTitleContainer}>
-        <View style={styles.modalClose}>
-          <TouchableNativeFeedback onPress={() => setVisible(false)}>
-            <IconIo name={`close`} size={20} color="black" />
-          </TouchableNativeFeedback>
-        </View>
-        <View style={styles.modalTitle}>
-          <Text style={{ fontSize: 18, fontWeight: `bold` }}>쿠폰</Text>
-        </View>
-      </View>
-      <View style={styles.couponContainer}>
-        <FlatList
-          data={money}
-          renderItem={({ item }) => {
-            return (
-              <TouchableNativeFeedback onPress={() => {}}>
-                <View style={styles.couponItem}>
-                  <View>
-                    <Text style={{ fontWeight: `bold`, fontSize: 16 }}>
-                      {priceComma(item)}원 할인 쿠폰
-                    </Text>
-                    <Text style={{ fontSize: 12, color: `rgba(0, 0, 0, 0.5)` }}>
-                      최소 구매 금액 {priceComma(item * 5)}원
-                    </Text>
-                  </View>
-                  <View>
-                    <IconMC name="download" size={20} color="black" />
-                  </View>
-                </View>
-              </TouchableNativeFeedback>
-            );
-          }}
-          keyExtractor={(item, index) => index.toString()}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
-    </>
-  );
-}
-
-export function PurchaseOptions({ options, name }) {
+export function PurchaseOptions({options, name}) {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const onChoice = useCallback((text) => {
-    setChoice(text);
-    setOpen(false);
-  }, []);
+  const onChoice = useCallback(
+    (text) => {
+      setChoice(text);
+      setOpen(false);
+      () => dispatch();
+    },
+    [dispatch],
+  );
 
   const optionStyle = StyleSheet.create({
     optionContainer: {
@@ -124,7 +84,7 @@ export function PurchaseOptions({ options, name }) {
   );
 }
 
-export function PurchasePopup({ setVisible, options }) {
+export function PurchasePopup({setVisible, options}) {
   const purcharseStyle = StyleSheet.create({
     container: {
       flex: 1,
@@ -185,7 +145,7 @@ export function PurchasePopup({ setVisible, options }) {
   );
 }
 
-function Popup({ visible, Component }) {
+function Popup({visible, Component}) {
   return (
     <Modal
       animationType="slide"
@@ -228,21 +188,6 @@ const styles = StyleSheet.create({
   modalClose: {
     position: 'absolute',
     left: 10,
-  },
-  couponContainer: {
-    paddingHorizontal: 10,
-  },
-  couponItem: {
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 5,
-    borderRadius: 5,
-    borderStyle: 'solid',
-    borderWidth: 2,
-    borderColor: `rgba(0, 0, 0, .25)`,
   },
 });
 

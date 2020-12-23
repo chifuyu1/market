@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   View,
@@ -9,52 +10,52 @@ import {
   Dimensions,
   TouchableHighlight,
 } from 'react-native';
+import IconEV from 'react-native-vector-icons/EvilIcons';
+import IconIo from 'react-native-vector-icons/Ionicons';
+import IconSL from 'react-native-vector-icons/SimpleLineIcons';
+import IconFA from 'react-native-vector-icons/FontAwesome';
 
-const Info = [
-  {
-    headphone: '고객센터',
-  },
-  { notice: '공지사항' },
-  { perInfo: '개인정보 수집 및 이용' },
-  { term: '서비스 이용약관' },
-  { code: '오픈소스 라이선스' },
-  {
-    version: '버전',
-  },
-];
-
-function renderItems(item) {
+function Information() {
+  const navigation = useNavigation();
   return (
     <>
+      <View style={styles.infoHeaderView}>
+        <Text style={styles.infoHeaderText}>정보</Text>
+      </View>
+      <TouchableNativeFeedback onPress={() => navigation.navigate(`Notice`)}>
+        <View style={styles.infoItem}>
+          <IconSL name='speech' color={`black`} size={20} />
+          <Text style={styles.infoItemText}>공지사항</Text>
+        </View>
+      </TouchableNativeFeedback>
+      <TouchableNativeFeedback
+        onPress={() => navigation.navigate(`ServiceTermPersonalInfo`)}
+      >
+        <View style={styles.infoItem}>
+          <IconFA name='user' color={`black`} size={24} />
+          <Text style={styles.infoItemText}>서비스 이용약관 및 개인정보</Text>
+        </View>
+      </TouchableNativeFeedback>
+      <TouchableNativeFeedback
+        onPress={() => navigation.navigate('OpenSource')}
+      >
+        <View style={styles.infoItem}>
+          <IconIo name='code-slash-outline' color={`black`} size={20} />
+          <Text style={styles.infoItemText}>오픈소스 라이선스</Text>
+        </View>
+      </TouchableNativeFeedback>
       <TouchableNativeFeedback onPress={() => {}}>
         <View style={styles.infoItem}>
-          <Text>{Object.keys(item)}</Text>
-          <Text style={styles.itemItemText}>{Object.values(item)}</Text>
+          <IconEV name='refresh' color={`black`} size={20} />
+          <Text style={styles.infoItemText}>버전 정보</Text>
+          <Text style={{ color: `#2196F3`, marginLeft: 4 }}>1.0.0</Text>
         </View>
       </TouchableNativeFeedback>
     </>
   );
 }
 
-function Information() {
-  return (
-    <>
-      <FlatList
-        data={Info}
-        renderItem={({ item }) => renderItems(item)}
-        keyExtractor={(item, index) => index.toString()}
-        ListHeaderComponent={() => (
-          <Text style={styles.infoHeaderText}>정보</Text>
-        )}
-        ListHeaderComponentStyle={styles.infoHeaderView}
-        showsVerticalScrollIndicator={false}
-      />
-    </>
-  );
-}
-
 const styles = StyleSheet.create({
-  container: {},
   infoHeaderView: {
     paddingVertical: 10,
   },
@@ -65,12 +66,13 @@ const styles = StyleSheet.create({
   infoItem: {
     flexDirection: 'row',
     paddingVertical: 4,
-    width: '100%',
+    width: Dimensions.get(`window`).width,
     height: 40,
     alignItems: 'center',
   },
   infoItemText: {
-    fontSize: 18,
+    fontSize: 15,
+    marginLeft: 8,
   },
 });
 

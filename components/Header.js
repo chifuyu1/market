@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -7,10 +7,9 @@ import {
   Keyboard,
   Text,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import IconIo from 'react-native-vector-icons/Ionicons';
-import Icon from 'react-native-vector-icons/Feather';
-import Popup from './Popup';
-import Cart from './Cart';
+import IconSL from 'react-native-vector-icons/SimpleLineIcons';
 
 export function HomeHeader() {
   const [keyword, setKeyword] = useState('');
@@ -59,8 +58,8 @@ const HomeStyles = StyleSheet.create({
   },
 });
 
-function Header({ Component, openDrawer, title }) {
-  const [visible, setVisible] = useState(false);
+function Header({Component, openDrawer, title}) {
+  const navigation = useNavigation();
 
   return (
     <>
@@ -74,17 +73,14 @@ function Header({ Component, openDrawer, title }) {
           {title ? <Text>{title}</Text> : <></>}
         </View>
         {Component ? <Component /> : <></>}
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{flexDirection: 'row'}}>
           <TouchableNativeFeedback onPress={() => console.log('bell')}>
             <View style={styles.icon}>
-              <Icon name="bell" size={20} color="black" />
+              <IconSL name="bell" size={20} color="black" />
             </View>
           </TouchableNativeFeedback>
-          <Popup
-            Component={() => <Cart setVisible={setVisible} />}
-            visible={visible}
-          />
-          <TouchableNativeFeedback onPress={() => setVisible(true)}>
+          <TouchableNativeFeedback
+            onPress={() => navigation.navigate('마이페이지')}>
             <View style={styles.icon}>
               <IconIo name={'cart-outline'} size={20} color="black" />
             </View>

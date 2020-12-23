@@ -36,7 +36,7 @@ const App = () => {
     return <PlatformError />;
   return (
     <Provider store={store}>
-      <StatusBar barStyle="default" />
+      <StatusBar barStyle='default' />
       <Navigator />
     </Provider>
     // <Temp />

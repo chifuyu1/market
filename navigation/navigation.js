@@ -2,24 +2,30 @@ import React, { memo } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import MainScreen from '../screens/MainScreen';
 import FavoriteScreen from '../screens/FavoriteScreen';
 import MyPage from '../screens/MyPage';
 import ProductInfo from '../components/ProductInfo';
-import Icon from 'react-native-vector-icons/Ionicons';
+import IconIo from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { LogBox } from 'react-native';
+import Coupon from '../components/Coupon';
+import Temp from '../screens/Temp';
+import { OpenSource, ServiceTerm, Notice } from '../components/InfoDetail';
 
 LogBox.ignoreAllLogs();
+
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-// LogBox.ignoreWarnings(['Warning: ...']);
+const TopTab = createMaterialTopTabNavigator();
+
 function FavoriteScreenStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Favorite" component={FavoriteScreen} />
+      <Stack.Screen name='Favorite' component={FavoriteScreen} />
       <Stack.Screen
-        name="ProductInfo"
+        name='ProductInfo'
         component={ProductInfo}
         options={{ headerShown: false }}
       />
@@ -30,14 +36,62 @@ function MainScreenStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name='Home'
         component={MainScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="ProductInfo"
+        name='ProductInfo'
         component={ProductInfo}
         options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function CouponTab() {
+  return (
+    <TopTab.Navigator>
+      <TopTab.Screen name='보유' component={Coupon} />
+      <TopTab.Screen name='만료' component={Coupon} />
+    </TopTab.Navigator>
+  );
+}
+
+function MyPageStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name='MyPage'
+        component={MyPage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='Coupon'
+        component={CouponTab}
+        options={{ headerTitle: `쿠폰` }}
+      />
+      <Stack.Screen
+        name='Notice'
+        component={Notice}
+        options={{
+          headerTitle: `공지사항`,
+          headerTitleStyle: { fontSize: 16 },
+        }}
+      />
+      <Stack.Screen
+        name='OpenSource'
+        component={OpenSource}
+        options={{
+          headerTitle: `오픈소스`,
+        }}
+      />
+      <Stack.Screen
+        name='ServiceTermPersonalInfo'
+        component={ServiceTerm}
+        options={{
+          headerTitle: `서비스 이용약관 및 개인정보 수집`,
+        }}
       />
     </Stack.Navigator>
   );
@@ -61,7 +115,7 @@ const router = [
   {
     id: 3,
     name: '마이페이지',
-    component: MyPage,
+    component: MyPageStack,
     iconName: 'user-o',
     focusedName: 'user',
   },
@@ -70,12 +124,13 @@ const router = [
 export function BottomTab() {
   return (
     <Tab.Navigator
-      activeColor="#ff0000"
-      inactiveColor="gray"
-      initialRouteName="홈"
-      backBehavior="none"
+      activeColor='#ff0000'
+      inactiveColor='gray'
+      initialRouteName='홈'
+      backBehavior='none'
       screenOptions={{ tabBarColor: '#fff' }}
-      barStyle={{ backgroundColor: '#fff' }}>
+      barStyle={{ backgroundColor: '#fff' }}
+    >
       {router.map((element) => (
         <Tab.Screen
           key={element.id}
@@ -93,7 +148,7 @@ export function BottomTab() {
                 );
               }
               return (
-                <Icon
+                <IconIo
                   name={focused ? element.focusedName : element.iconName}
                   size={20}
                   color={focused ? 'red' : 'gray'}

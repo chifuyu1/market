@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { all, fork } from 'redux-saga/effects';
-import { baseURL } from '../config/config';
+import {all, fork} from 'redux-saga/effects';
+import {baseURL} from '../config/config';
 import userSaga from './user';
+import productSaga from './product';
 
 axios.defaults.baseURL = baseURL;
 axios.defaults.withCredentials = true;
 
 export default function* rootSaga() {
-  yield all([fork(userSaga)]);
+  yield all([fork(userSaga), fork(productSaga)]);
 }
