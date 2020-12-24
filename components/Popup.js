@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -14,10 +14,11 @@ import {
 } from 'react-native';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useDispatch} from 'react-redux';
-import {priceComma} from '../util/price';
+import { useDispatch } from 'react-redux';
+import { priceComma } from '../util/price';
 
-export function PurchaseOptions({options, name}) {
+export function PurchaseOptions({ options, name }) {
+  const [choice, setChoice] = useState(`옵션 ${name} 선택하기`);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -62,7 +63,7 @@ export function PurchaseOptions({options, name}) {
             <IconIo
               name={!open ? 'caret-down-outline' : 'caret-up-outline'}
               size={14}
-              color="black"
+              color='black'
             />
           </View>
         </View>
@@ -71,7 +72,8 @@ export function PurchaseOptions({options, name}) {
         options.map((element, index) => (
           <TouchableNativeFeedback
             onPress={() => onChoice(element)}
-            key={index}>
+            key={index}
+          >
             <View style={optionStyle.optionItem}>
               <Text>{element}</Text>
             </View>
@@ -84,7 +86,8 @@ export function PurchaseOptions({options, name}) {
   );
 }
 
-export function PurchasePopup({setVisible, options}) {
+export function PurchasePopup({ setVisible, options }) {
+  const [choicedOptions, setChoicedOptions] = useState([]);
   const purcharseStyle = StyleSheet.create({
     container: {
       flex: 1,
@@ -145,13 +148,14 @@ export function PurchasePopup({setVisible, options}) {
   );
 }
 
-function Popup({visible, Component}) {
+function Popup({ visible, Component }) {
   return (
     <Modal
-      animationType="slide"
+      animationType='slide'
       transparent
       visible={visible}
-      onDismiss={Keyboard.dismiss}>
+      onDismiss={Keyboard.dismiss}
+    >
       <View style={styles.modalBackground}>
         <View style={styles.modalContainer}>
           {Component ? <Component /> : <></>}

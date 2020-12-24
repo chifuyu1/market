@@ -12,19 +12,12 @@ function CartContent() {
   );
 }
 
-function Cart({ setVisible }) {
-  const user = useSelector((state) => state.user);
-  const navi = useNavigation();
-  // if (!user.account)
-  //   Alert.alert(`오류`, `로그인이 필요합니다`, [
-  //     { style: `destructive`, text: `OK` },
-  //   ]);
-
+function Cart() {
   return (
     <View>
       <Text>Cart</Text>
       <Button
-        title="마이페이지 이동"
+        title='마이페이지 이동'
         onPress={() => navi.navigate('마이페이지')}
       />
       <Text>d</Text>

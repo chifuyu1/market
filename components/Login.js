@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useEffect} from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,8 +9,8 @@ import {
   Image,
   Button,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import {
   googleLoginRequest,
   googleLogoutRequest,
@@ -40,6 +40,7 @@ function Login() {
 
   return (
     <>
+      <Button onPress={moveCoupon} title='쿠폰 보기' />
       {!account ? (
         <>
           <View style={styles.container}>
@@ -52,7 +53,8 @@ function Login() {
             <View style={styles.socialContainer}>
               <TouchableHighlight
                 onPress={googleLogin}
-                style={styles.socialContainer}>
+                style={styles.socialContainer}
+              >
                 <Image
                   style={styles.socialImage}
                   source={require(`../assets/google.png`)}
@@ -60,7 +62,8 @@ function Login() {
               </TouchableHighlight>
               <TouchableHighlight
                 onPress={kakaoLogin}
-                style={styles.socialContainer}>
+                style={styles.socialContainer}
+              >
                 <Image
                   style={styles.socialImage}
                   source={require(`../assets/kakao.png`)}
@@ -71,11 +74,10 @@ function Login() {
         </>
       ) : (
         <View>
-          <Button onPress={googleLogout} title="구글 로그아웃" />
+          <Button onPress={googleLogout} title='구글 로그아웃' />
           <Text>fff</Text>
-          <Button onPress={kakaoLogout} title="카카오 로그아웃" />
+          <Button onPress={kakaoLogout} title='카카오 로그아웃' />
           <Text>fff</Text>
-          <Button onPress={moveCoupon} title="쿠폰 보기" />
         </View>
       )}
     </>
