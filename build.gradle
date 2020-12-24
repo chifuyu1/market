@@ -30,9 +30,10 @@ repositories {
 dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compileOnly group: 'org.projectlombok', name: 'lombok'
-    runtimeOnly group: 'com.h2database', name: 'h2'
     annotationProcessor group: 'org.projectlombok', name: 'lombok'
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.4'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
 }
 
 test {
