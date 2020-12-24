@@ -25,6 +25,9 @@ function Login() {
   const moveCoupon = useCallback(() => navigation.navigate('Coupon'), [
     navigation,
   ]);
+  const moveOrder = useCallback(() => navigation.navigate('OrderList'), [
+    navigation,
+  ]);
   const googleLogin = useCallback(() => dispatch(googleLoginRequest()), [
     dispatch,
   ]);
@@ -41,6 +44,8 @@ function Login() {
   return (
     <>
       <Button onPress={moveCoupon} title='쿠폰 보기' />
+      <Text> </Text>
+      <Button onPress={moveOrder} title='주문/결제' />
       {!account ? (
         <>
           <View style={styles.container}>

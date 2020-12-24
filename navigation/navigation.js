@@ -13,6 +13,7 @@ import { LogBox } from 'react-native';
 import Coupon from '../components/Coupon';
 import Temp from '../screens/Temp';
 import { OpenSource, ServiceTerm, Notice } from '../components/InfoDetail';
+import Cart from '../components/Cart';
 
 LogBox.ignoreAllLogs();
 
@@ -70,6 +71,11 @@ function MyPageStack() {
         name='Coupon'
         component={CouponTab}
         options={{ headerTitle: `쿠폰` }}
+      />
+      <Stack.Screen
+        name='OrderList'
+        component={Cart}
+        options={{ headerTitle: `주문/결제` }}
       />
       <Stack.Screen
         name='Notice'

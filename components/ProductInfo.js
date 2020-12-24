@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -10,30 +10,30 @@ import {
   TouchableWithoutFeedback,
   FlatList,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import IconIo from 'react-native-vector-icons/Ionicons';
-import {priceComma} from '../util/price';
+import { priceComma } from '../util/price';
 import Swiper from 'react-native-swiper';
 import Header from './Header';
-import Popup, {CouponPopup, PurchasePopup} from './Popup';
+import Popup, { CouponPopup, PurchasePopup } from './Popup';
 import DrawerLayout from './DrawerLayout';
 
-function ProductInfo1({route, openDrawer}) {
+function ProductInfo1({ route, openDrawer }) {
   const [buy, setBuy] = useState(false);
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
-    navigation.setOptions({tabBarVisible: false});
+    navigation.setOptions({ tabBarVisible: false });
   }, [navigation]);
 
   useEffect(() => {
-    navigation.setOptions({tabBarVisible: false});
+    navigation.setOptions({ tabBarVisible: false });
     console.log(navigation);
   }, [navigation]);
 
-  const {info} = route.params;
+  const { info } = route.params;
   // const params = navigation.
-  const {uri, discount, price, storeName, title, quantity} = info;
+  const { uri, discount, price, storeName, title, quantity } = info;
   // const title = '(1+1할인) 오버니삭스';
 
   return (
@@ -50,14 +50,15 @@ function ProductInfo1({route, openDrawer}) {
             nextButton={() => <></>}
             prevButton={() => <></>}
             width={Dimensions.get('window').width}
-            height={150}>
-            <Image source={{uri}} style={styles.image} />
-            <Image source={{uri}} style={styles.image} />
-            <Image source={{uri}} style={styles.image} />
+            height={150}
+          >
+            <Image source={{ uri }} style={styles.image} />
+            <Image source={{ uri }} style={styles.image} />
+            <Image source={{ uri }} style={styles.image} />
             <FlatList
               data={uri}
               renderItem={(itemData) => (
-                <Image source={{uri}} style={styles.image} />
+                <Image source={{ uri }} style={styles.image} />
               )}
               keyExtractor={(item, index) => index.toString()}
               showsHorizontalScrollIndicator={false}
@@ -71,26 +72,13 @@ function ProductInfo1({route, openDrawer}) {
             <Text>{title}</Text>
             <Text style={styles.priceText}>{priceComma(price)}원</Text>
           </View>
-          {/* <Popup
-            visible={coupon}
-            Component={() => <CouponPopup setVisible={setCoupon} />}
-            key={'coupon'}
-          /> */}
-          {/* <TouchableNativeFeedback onPress={() => setCoupon(true)}>
-            <View style={styles.coupon}>
-              <Text style={styles.couponText}>
-                최대 100,000원 할인 쿠폰받기
-              </Text>
-              <IconIo name="caret-down" size={14} color={`#2196F3`} />
-            </View>
-          </TouchableNativeFeedback> */}
           <Text style={styles.productCodeText}>상품코드 3080-347202</Text>
         </View>
       </ScrollView>
       <View style={styles.paymentBar}>
         <TouchableWithoutFeedback onPress={() => {}}>
           <View style={styles.like}>
-            <IconIo name="heart-outline" size={20} color="#ff0000" />
+            <IconIo name='heart-outline' size={20} color='#ff0000' />
             <Text style={styles.likeText}>1.7만</Text>
           </View>
         </TouchableWithoutFeedback>
@@ -109,7 +97,7 @@ function ProductInfo1({route, openDrawer}) {
   );
 }
 
-const ProductInfo = ({route}) => {
+const ProductInfo = ({ route }) => {
   return (
     <>
       <DrawerLayout Component={() => <ProductInfo1 route={route} />} />
