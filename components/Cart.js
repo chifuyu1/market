@@ -9,9 +9,12 @@ import {
   Image,
 } from 'react-native';
 import { priceComma } from '../util/price';
+import Popup, { PurchasePopup, Quantity } from './Popup';
 
 function CartItem({ item }) {
   const [checkBox, setCheckBox] = useState(false);
+  const [option, setOption] = useState(false);
+  const [quantity, setQuantity] = useState(false);
   return (
     <View style={styles.product}>
       <View style={{ marginVertical: 10, justifyContent: 'center' }}>
@@ -39,13 +42,21 @@ function CartItem({ item }) {
             <Text>소라/FREE</Text>
           </View>
           <View style={styles.productOptions}>
-            <TouchableNativeFeedback>
+            <Popup
+              Component={() => <PurchasePopup setVisible={setOption} />}
+              visible={option}
+            />
+            <TouchableNativeFeedback onPress={() => setOption(true)}>
               <View style={styles.productOption}>
                 <Text style={styles.productOptionText}>옵션변경</Text>
               </View>
             </TouchableNativeFeedback>
             <View style={{ width: 10, height: 5 }} />
-            <TouchableNativeFeedback>
+            <Popup
+              Component={() => <Quantity setVisible={setQuantity} />}
+              visible={quantity}
+            />
+            <TouchableNativeFeedback onPress={() => setQuantity(true)}>
               <View style={styles.productOption}>
                 <Text style={styles.productOptionText}>1</Text>
               </View>

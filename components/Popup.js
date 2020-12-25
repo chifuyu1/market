@@ -17,8 +17,15 @@ import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch } from 'react-redux';
 import { priceComma } from '../util/price';
 
-export function PurchaseOptions({ options, name }) {
-  const [choice, setChoice] = useState(`옵션 ${name} 선택하기`);
+export function PurchaseOptions({
+  options,
+  name,
+  setChoicedOptions,
+  choicedOptions,
+}) {
+  const [choice, setChoice] = useState(
+    name === 1 ? `색상 선택하기` : `사이즈 선택하기`,
+  );
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -26,7 +33,7 @@ export function PurchaseOptions({ options, name }) {
     (text) => {
       setChoice(text);
       setOpen(false);
-      () => dispatch();
+      // setChoicedOptions(() => (choicedOptions[name - 1] = text));
     },
     [dispatch],
   );
@@ -88,6 +95,7 @@ export function PurchaseOptions({ options, name }) {
 
 export function PurchasePopup({ setVisible, options }) {
   const [choicedOptions, setChoicedOptions] = useState([]);
+
   const purcharseStyle = StyleSheet.create({
     container: {
       flex: 1,
@@ -110,8 +118,9 @@ export function PurchasePopup({ setVisible, options }) {
   });
   const option = [
     ['아이보리', '노랑색'],
-    ['빨강', '파랑'],
+    ['FREE', 'S', 'M', 'L'],
   ];
+  console.log(option.length, choicedOptions);
   const option1 = [];
   for (let i = 1; i < options + 1; i++) {
     option1.push(i);
@@ -139,11 +148,46 @@ export function PurchasePopup({ setVisible, options }) {
         <View>
           <TouchableNativeFeedback onPress={() => setVisible(false)}>
             <View style={purcharseStyle.closeContainer}>
-              <Text style={purcharseStyle.closeText}>옵션 선택 닫기</Text>
+              {choicedOptions.length === option.length ? (
+                <Text style={purcharseStyle.closeText}>구매하기</Text>
+              ) : (
+                <Text style={purcharseStyle.closeText}>옵션 선택 닫기</Text>
+              )}
             </View>
           </TouchableNativeFeedback>
         </View>
       </View>
+    </>
+  );
+}
+
+export function Quantity({ setVisible }) {
+  const quantityStyle = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingHorizontal: 10,
+      paddingVertical: 20,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+    },
+    closeContainer: {
+      paddingHorizontal: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 60,
+      borderRadius: 5,
+      borderWidth: 2,
+      borderStyle: `solid`,
+      borderColor: `rgba(0, 0, 0, 0.5)`,
+    },
+    closeText: {},
+  });
+  return (
+    <>
+      <View style={quantityStyle.container}>
+        <Text>수량</Text>
+      </View>
+      <Button title='close' onPress={() => setVisible(false)} />
     </>
   );
 }

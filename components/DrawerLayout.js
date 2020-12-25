@@ -28,7 +28,8 @@ function DrawerLayout({ Component }) {
           <Category Component={CategoryDrawer} />
         </>
       )}
-      keyboardDismissMode={'on-drag'}>
+      keyboardDismissMode={'on-drag'}
+    >
       {Component ? <Component openDrawer={openDrawer} /> : <></>}
     </DrawerLayoutAndroid>
   );

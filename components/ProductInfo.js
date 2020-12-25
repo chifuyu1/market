@@ -13,10 +13,10 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import { priceComma } from '../util/price';
-import Swiper from 'react-native-swiper';
 import Header from './Header';
 import Popup, { CouponPopup, PurchasePopup } from './Popup';
 import DrawerLayout from './DrawerLayout';
+import BitSwiper from 'react-native-bit-swiper';
 
 function ProductInfo1({ route, openDrawer }) {
   const [buy, setBuy] = useState(false);
@@ -28,43 +28,34 @@ function ProductInfo1({ route, openDrawer }) {
 
   useEffect(() => {
     navigation.setOptions({ tabBarVisible: false });
-    console.log(navigation);
   }, [navigation]);
 
+  console.log('productinfo');
   const { info } = route.params;
   // const params = navigation.
   const { uri, discount, price, storeName, title, quantity } = info;
-  // const title = '(1+1할인) 오버니삭스';
-
+  const data = [
+    'https://images.unsplash.com/photo-1608806947629-da2ae50be954?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+    'https://images.unsplash.com/photo-1608814697059-f99110964423?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=622&q=80',
+    'https://images.unsplash.com/photo-1608822101969-3e362a03fd5e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+  ];
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <Header openDrawer={openDrawer} />
           {/* 헤더가 사진 위로 겹쳐서 보여야함 */}
-          <Swiper
-            showsButtons
-            loop={false}
-            showsHorizontalScrollIndicator={false}
-            showsPagination={true}
-            nextButton={() => <></>}
-            prevButton={() => <></>}
-            width={Dimensions.get('window').width}
-            height={150}
-          >
-            <Image source={{ uri }} style={styles.image} />
-            <Image source={{ uri }} style={styles.image} />
-            <Image source={{ uri }} style={styles.image} />
-            <FlatList
-              data={uri}
-              renderItem={(itemData) => (
-                <Image source={{ uri }} style={styles.image} />
-              )}
-              keyExtractor={(item, index) => index.toString()}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-            />
-          </Swiper>
+          <BitSwiper
+            items={data}
+            onItemRender={(item, index) => (
+              <View key={index} style={{ height: 150 }}>
+                <Image
+                  source={{ uri: item }}
+                  style={{ width: '100%', height: '100%' }}
+                />
+              </View>
+            )}
+          />
         </View>
         <View style={styles.productInfo}>
           {/* <Text>{discount}</Text> */}
@@ -85,7 +76,6 @@ function ProductInfo1({ route, openDrawer }) {
         <Popup
           visible={buy}
           Component={() => <PurchasePopup setVisible={setBuy} />}
-          key={'purchase'}
         />
         <TouchableNativeFeedback onPress={() => setBuy(true)}>
           <View style={styles.payment}>
