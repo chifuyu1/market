@@ -10,6 +10,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import IconSL from 'react-native-vector-icons/SimpleLineIcons';
+import { theme } from '../config/config';
 
 export function HomeHeader() {
   const [keyword, setKeyword] = useState('');
@@ -42,7 +43,7 @@ const HomeStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#dee2e6',
+    backgroundColor: theme.input.background,
     borderRadius: 10,
     paddingHorizontal: 5,
     marginHorizontal: 10,
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     height: 60,
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#fff',
+    backgroundColor: theme.container.background,
     elevation: 4,
   },
   icon: {

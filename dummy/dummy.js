@@ -1,7 +1,7 @@
 export const dummy = [
   {
     id: 1,
-    uri: 'https://img.hani.co.kr/imgdb/resize/2017/0724/00500578_20170724.JPG',
+    // uri: 'https://img.hani.co.kr/imgdb/resize/2017/0724/00500578_20170724.JPG',
     name: '[필수템!]몸매좋아보이는 쫀쫀한 브이넥 니트',
     discount: '30%',
     price: 1390124123120,

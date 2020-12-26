@@ -9,13 +9,14 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import IconIo from 'react-native-vector-icons/Ionicons';
+import { theme } from '../config/config';
 import { categories, womans } from '../dummy/dummy';
 
 export const CategoryDrawer = ({ male }) => {
   const draw = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'skyblue',
+      backgroundColor: theme.temp.background,
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 10,
@@ -90,7 +91,11 @@ function Category({ Component }) {
           <View
             style={[
               styles.choiceSex,
-              { backgroundColor: male ? '#339af0' : '#fff' },
+              {
+                backgroundColor: male
+                  ? theme.male.active
+                  : theme.male.non_active,
+              },
             ]}
           >
             <Text>남자</Text>
@@ -100,7 +105,11 @@ function Category({ Component }) {
           <View
             style={[
               styles.choiceSex,
-              { backgroundColor: male ? '#fff' : '#fcc2d7' },
+              {
+                backgroundColor: male
+                  ? theme.female.non_active
+                  : theme.female.active,
+              },
             ]}
           >
             <Text>여자</Text>

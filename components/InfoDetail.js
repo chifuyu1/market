@@ -6,7 +6,6 @@ import {
   View,
   TouchableNativeFeedback,
 } from 'react-native';
-import { useTheme } from '@react-navigation/native';
 import {
   DeliveryQuestion,
   orderQuestion,
@@ -14,18 +13,18 @@ import {
   openSourceUrl,
   terms,
 } from '../data/infomation';
+import { theme } from '../config/config';
 
 export function NoticeItem({ item, content }) {
   const [visible, setVisible] = useState(false);
-  const { colors } = useTheme();
 
   const noticeItemStyle = StyleSheet.create({
     itemContainer: {
       paddingVertical: 10,
       borderRadius: 10,
-      backgroundColor: colors.background,
+      backgroundColor: theme.notice.background,
       borderWidth: 2,
-      borderColor: `#2196F3`,
+      borderColor: theme.notice.border,
       borderStyle: `solid`,
       elevation: 3,
       marginVertical: 10,

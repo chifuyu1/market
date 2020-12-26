@@ -15,6 +15,7 @@ export default function Quantity({ setQuantityOpen, setChoiceQuantity }) {
   const onSet = useCallback(
     (item) => {
       dispatch({ type: SET_OPTION_QUANTITY, data: item });
+
       setChoiceQuantity(item);
       setQuantityOpen(false);
     },

@@ -4,7 +4,12 @@ import IconIo from 'react-native-vector-icons/Ionicons';
 import { useDispatch } from 'react-redux';
 import { SET_OPTION_COLOR, SET_OPTION_SIZE } from '../../reducer/product';
 
-export default memo(function PurchaseOptions({ options, name }) {
+export default memo(function PurchaseOptions({
+  options,
+  name,
+  setOptions,
+  Options,
+}) {
   const [choice, setChoice] = useState(() => {
     const named = {
       1: `색상 선택하기`,
@@ -17,9 +22,14 @@ export default memo(function PurchaseOptions({ options, name }) {
 
   const onChoice = useCallback(
     (text) => {
-      name === 1
-        ? dispatch({ type: SET_OPTION_COLOR, data: text })
-        : dispatch({ type: SET_OPTION_SIZE, data: text });
+      if (name === 1) {
+        dispatch({ type: SET_OPTION_COLOR, data: text });
+        setOptions({ ...Options, color: text });
+      } else {
+        dispatch({ type: SET_OPTION_SIZE, data: text });
+        setOptions({ ...Options, size: text });
+      }
+      console.log(Options, text);
       setChoice(text);
       setOpen(false);
     },

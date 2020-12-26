@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Modal, Dimensions, Keyboard } from 'react-native';
+import { theme } from '../config/config';
 
 function Popup({ visible, Component }) {
   return (
@@ -21,11 +22,11 @@ function Popup({ visible, Component }) {
 const styles = StyleSheet.create({
   modalBackground: {
     flex: 1,
-    backgroundColor: `rgba(0, 0, 0, 0.5)`,
+    backgroundColor: theme.modal.background,
     justifyContent: 'flex-end',
   },
   modalContainer: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: theme.modal.container,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     height: Dimensions.get('window').height * 0.65,

@@ -8,6 +8,7 @@ import {
   Dimensions,
   TouchableNativeFeedback,
 } from 'react-native';
+import { theme } from '../config/config';
 import { priceComma } from '../util/price';
 
 const WIDTH = Dimensions.get('window').width;
@@ -18,7 +19,8 @@ function Product(info) {
 
   return (
     <TouchableNativeFeedback
-      onPress={() => navigation.navigate('ProductInfo', { info })}>
+      onPress={() => navigation.navigate('ProductInfo', { info })}
+    >
       <View style={[styles.container, ...[len ? { flex: 1 } : {}]]}>
         {uri ? (
           <Image
@@ -31,11 +33,12 @@ function Product(info) {
         ) : (
           <View
             style={{
-              backgroundColor: 'gray',
+              backgroundColor: theme.container.non_active,
               alignItems: 'center',
               justifyContent: 'center',
               height: 100,
-            }}>
+            }}
+          >
             <Text>No Data</Text>
           </View>
         )}
@@ -47,7 +50,8 @@ function Product(info) {
         <Text
           style={styles.productTitle}
           numberOfLines={1}
-          ellipsizeMode={'tail'}>
+          ellipsizeMode={'tail'}
+        >
           {title}
         </Text>
         <Text style={styles.productQuantity}>{quantity}</Text>
@@ -58,7 +62,7 @@ function Product(info) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: theme.navigationBar.bottomTab.containerBackground,
     marginHorizontal: 2,
     paddingHorizontal: 5,
     marginVertical: 10,
@@ -73,20 +77,18 @@ const styles = StyleSheet.create({
   },
   discount: {
     fontSize: 16,
-    color: '#ff6b6b',
+    color: theme.product.discountText,
     fontWeight: 'bold',
     marginRight: 10,
   },
   price: {
     fontSize: 16,
-    color: '#000',
     fontWeight: 'bold',
   },
   productTitle: {
     fontSize: 12,
     lineHeight: 24,
   },
-  productQuantity: {},
 });
 
 export default React.memo(Product);

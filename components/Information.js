@@ -14,6 +14,7 @@ import IconEV from 'react-native-vector-icons/EvilIcons';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import IconSL from 'react-native-vector-icons/SimpleLineIcons';
 import IconFA from 'react-native-vector-icons/FontAwesome';
+import { theme } from '../config/config';
 
 function Information() {
   const navigation = useNavigation();
@@ -48,7 +49,9 @@ function Information() {
         <View style={styles.infoItem}>
           <IconEV name='refresh' color={`black`} size={20} />
           <Text style={styles.infoItemText}>버전 정보</Text>
-          <Text style={{ color: `#2196F3`, marginLeft: 4 }}>1.0.0</Text>
+          <Text style={{ color: theme.notice.border, marginLeft: 4 }}>
+            1.0.0
+          </Text>
         </View>
       </TouchableNativeFeedback>
     </>

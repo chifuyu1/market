@@ -18,6 +18,7 @@ import Popup, { CouponPopup } from './Popup';
 import PurchasePopup from './product/PurchasePopup';
 import DrawerLayout from './DrawerLayout';
 import BitSwiper from 'react-native-bit-swiper';
+import { theme } from '../config/config';
 
 function ProductInfo1({ route, openDrawer }) {
   const [buy, setBuy] = useState(false);
@@ -32,7 +33,6 @@ function ProductInfo1({ route, openDrawer }) {
     navigation.setOptions({ tabBarVisible: false });
   }, [navigation]);
 
-  console.log('productinfo');
   const { info } = routes.params;
   // const params = navigation.
   const { uri, discount, price, storeName, title, quantity } = info;
@@ -120,9 +120,8 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 200,
     justifyContent: 'space-evenly',
-    backgroundColor: 'gold',
     paddingHorizontal: 10,
-    backgroundColor: '#fff',
+    backgroundColor: theme.container.background,
     elevation: 3,
   },
   productPrice: {},
@@ -131,24 +130,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 40,
   },
-  coupon: {
-    paddingVertical: 10,
-    borderRadius: 4,
-    paddingHorizontal: 10,
-    borderStyle: 'solid',
-    borderColor: '#2196F3',
-    borderWidth: 2,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  couponText: {
-    color: '#2196F3',
-    fontWeight: 'bold',
-  },
+  // coupon: {
+  //   paddingVertical: 10,
+  //   borderRadius: 4,
+  //   paddingHorizontal: 10,
+  //   borderStyle: 'solid',
+  //   borderColor: '#2196F3',
+  //   borderWidth: 2,
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   alignItems: 'center',
+  // },
   productCodeText: {
     fontSize: 12,
-    color: 'rgba(0, 0, 0, 0.5)',
+    color: theme.product.couponText,
     // 색으로 바꿀 것
   },
   paymentBar: {
@@ -157,7 +152,7 @@ const styles = StyleSheet.create({
     height: 60,
     paddingVertical: 5,
     paddingHorizontal: 5,
-    backgroundColor: '#fafafa',
+    backgroundColor: theme.container.darken,
     justifyContent: 'space-evenly',
     elevation: 2,
   },
@@ -174,13 +169,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#212529',
+    backgroundColor: theme.highlight_pressable.background,
     borderRadius: 10,
     height: 40,
     marginLeft: 10,
   },
   paymentText: {
-    color: '#fff',
+    color: theme.highlight_pressable.text,
     fontSize: 20,
   },
 });

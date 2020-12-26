@@ -8,6 +8,7 @@ import {
   TouchableNativeFeedback,
   Image,
 } from 'react-native';
+import { theme } from '../config/config';
 import { priceComma } from '../util/price';
 import Popup from './Popup';
 import PurchasePopup from './product/PurchasePopup';
@@ -28,7 +29,7 @@ function CartItem({ item }) {
           <CheckBox
             value={checkBox}
             onValueChange={(newValue) => setCheckBox(newValue)}
-            tintColors={{ true: '#fa5252' }}
+            tintColors={{ true: theme.highlight_pressable.background }}
           />
         </View>
         <View style={styles.productInfo}>
@@ -111,7 +112,7 @@ function Cart() {
           <CheckBox
             value={toggleCheckBox}
             onValueChange={(newValue) => setToggleCheckBox(newValue)}
-            tintColors={{ true: '#fa5252' }}
+            tintColors={{ true: theme.highlight_pressable.background }}
           />
           <Text>전체 선택(1/1)</Text>
         </View>
@@ -167,7 +168,7 @@ function Cart() {
 
 const styles = StyleSheet.create({
   checkBox: {
-    backgroundColor: `#fff`,
+    backgroundColor: theme.container.background,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -182,11 +183,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     borderStyle: 'solid',
-    borderColor: `#dee2e6`,
+    borderColor: theme.pressable.border,
   },
   product: {
     marginVertical: 10,
-    backgroundColor: `#fff`,
+    backgroundColor: theme.container.background,
     paddingHorizontal: 10,
   },
   productImageContainer: {
@@ -208,7 +209,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 5,
     marginVertical: 10,
-    backgroundColor: '#dee2e6',
+    backgroundColor: theme.pressable.border,
   },
   productOptions: {
     flexDirection: 'row',
@@ -216,13 +217,13 @@ const styles = StyleSheet.create({
   },
   productOption: {
     flex: 1,
-    backgroundColor: `#fff`,
+    backgroundColor: theme.pressable.background,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 10,
     borderRadius: 5,
     borderStyle: 'solid',
-    borderColor: `#dee2e6`,
+    borderColor: theme.pressable.border,
     borderWidth: 1,
   },
   productOptionText: {
@@ -236,11 +237,11 @@ const styles = StyleSheet.create({
   },
   endOrder: {
     paddingHorizontal: 10,
-    backgroundColor: `#fff`,
+    backgroundColor: theme.container.background,
   },
   endInfoContainer: {
     borderTopWidth: 1,
-    borderTopColor: `#dee2e6`,
+    borderTopColor: theme.faint.border,
   },
   endInfo: {
     flexDirection: 'row',
@@ -249,7 +250,7 @@ const styles = StyleSheet.create({
   },
   endInfoLeftText: {
     fontSize: 16,
-    color: `#797c7f`,
+    color: theme.faint.text,
   },
   endInfoRightText: {
     fontSize: 16,
@@ -265,13 +266,13 @@ const styles = StyleSheet.create({
   paymentBtn: {
     width: '100%',
     flex: 1,
-    backgroundColor: '#fa5252',
+    backgroundColor: theme.highlight_pressable.background,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   paymentText: {
-    color: '#fff',
+    color: theme.highlight_pressable.text,
     fontSize: 20,
   },
 });

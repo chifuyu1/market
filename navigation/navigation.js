@@ -14,6 +14,7 @@ import Coupon from '../components/Coupon';
 import Temp from '../screens/Temp';
 import { OpenSource, ServiceTerm, Notice } from '../components/InfoDetail';
 import Cart from '../components/Cart';
+import { theme } from '../config/config';
 
 LogBox.ignoreAllLogs();
 
@@ -80,7 +81,7 @@ function MyPageStack() {
       <Stack.Screen
         name='OrderList'
         component={Cart}
-        options={{ headerTitle: `주문/결제` }}
+        options={{ headerTitle: `장바구니` }}
       />
       <Stack.Screen
         name='Notice'
@@ -135,12 +136,12 @@ const router = [
 export function BottomTab() {
   return (
     <Tab.Navigator
-      activeColor='#ff0000'
-      inactiveColor='gray'
+      activeColor={theme.navigationBar.bottomTab.active}
+      inactiveColor={theme.navigationBar.bottomTab.non_active}
       initialRouteName='홈'
       backBehavior='none'
-      screenOptions={{ tabBarColor: '#fff' }}
-      barStyle={{ backgroundColor: '#fff' }}
+      screenOptions={{ tabBarColor: theme.navigationBar.bottomTab.background }}
+      barStyle={{ backgroundColor: theme.navigationBar.bottomTab.background }}
     >
       {router.map((element) => (
         <Tab.Screen

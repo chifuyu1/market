@@ -6,6 +6,7 @@ import {
   TouchableNativeFeedback,
   View,
 } from 'react-native';
+import { useSelector } from 'react-redux';
 import Popup from '../Popup';
 import PurchaseOptions from './PurchaseOptions';
 import Quantity from './Quantity';
@@ -13,6 +14,13 @@ import Quantity from './Quantity';
 export default memo(function PurchasePopup({ setVisible, options }) {
   const [quantityOpen, setQuantityOpen] = useState(false);
   const [choiceQuantity, setChoiceQuantity] = useState('수량 선택');
+  const [Options, setOptions] = useState({ size: '', color: '', quantity: '' });
+  const option = useSelector((state) => state.product.options);
+
+  let completed = Object.values(option).every(
+    (element) => element.length !== 0,
+  );
+  console.log(Options);
 
   const purcharseStyle = StyleSheet.create({
     container: {
@@ -41,7 +49,7 @@ export default memo(function PurchasePopup({ setVisible, options }) {
       borderColor: `rgba(0, 0, 0, 0.5)`,
     },
   });
-  const option = [
+  const options1 = [
     ['아이보리', '노랑색'],
     ['FREE', 'S', 'M', 'L'],
   ];
@@ -51,13 +59,15 @@ export default memo(function PurchasePopup({ setVisible, options }) {
       <View style={purcharseStyle.container}>
         <View>
           <FlatList
-            data={option}
+            data={options1}
             keyExtractor={(item, index) => index.toString()}
             renderItem={(itemData) => {
               return (
                 <PurchaseOptions
                   name={itemData.index + 1}
                   options={itemData.item}
+                  setOptions={setOptions}
+                  Options={Options}
                   key={itemData.index.toString()}
                 />
               );
@@ -70,6 +80,8 @@ export default memo(function PurchasePopup({ setVisible, options }) {
               <Quantity
                 setQuantityOpen={setQuantityOpen}
                 setChoiceQuantity={setChoiceQuantity}
+                setOptions={setOptions}
+                Options={Options}
               />
             )}
           />
@@ -80,10 +92,15 @@ export default memo(function PurchasePopup({ setVisible, options }) {
           </TouchableNativeFeedback>
         </View>
         <View>
-          <TouchableNativeFeedback onPress={() => setVisible(false)}>
+          <TouchableNativeFeedback
+            onPress={
+              completed ? () => setVisible(false) : () => setVisible(false)
+            }
+          >
             <View style={purcharseStyle.closeContainer}>
-              <Text style={purcharseStyle.closeText}>구매하기</Text>
-              {/* <Text style={purcharseStyle.closeText}>옵션 선택 닫기</Text> */}
+              <Text style={purcharseStyle.closeText}>
+                {completed ? `구매하기` : '옵션 선택 닫기'}
+              </Text>
             </View>
           </TouchableNativeFeedback>
         </View>

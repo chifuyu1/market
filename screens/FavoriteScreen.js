@@ -12,6 +12,7 @@ import {
 import DrawerLayout from '../components/DrawerLayout';
 import Header from '../components/Header';
 import Product from '../components/Product';
+import { theme } from '../config/config';
 import { favoritesItem } from '../dummy/dummy';
 
 function FavoriteListHeader() {
@@ -98,7 +99,6 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
     marginTop: 10,
-    backgroundColor: 'yellow',
   },
   headerContainer: {
     marginHorizontal: 10,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#fff',
+    backgroundColor: theme.container.background,
     elevation: 8,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   login: {
     borderRadius: 4,
-    borderColor: `#2196F3`,
+    borderColor: theme.container.highlight_border,
     borderStyle: 'solid',
     borderWidth: 1,
     alignItems: 'center',
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   loginText: {
-    color: `#2196F3`,
+    color: theme.container.highlight_text,
   },
 });
 
