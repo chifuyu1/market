@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   View,
   Text,
@@ -9,9 +9,9 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import IconIo from 'react-native-vector-icons/Ionicons';
-import {categories, womans} from '../dummy/dummy';
+import { categories, womans } from '../dummy/dummy';
 
-export const CategoryDrawer = ({male}) => {
+export const CategoryDrawer = ({ male }) => {
   const draw = StyleSheet.create({
     container: {
       flex: 1,
@@ -36,7 +36,7 @@ export const CategoryDrawer = ({male}) => {
         {male ? (
           <FlatList
             data={categories}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <TouchableNativeFeedback key={Object.keys(item)}>
                 <View style={draw.buttonContainer}>
                   <IconIo name={'heart-outline'} size={20} color={'black'} />
@@ -50,7 +50,7 @@ export const CategoryDrawer = ({male}) => {
         ) : (
           <FlatList
             data={categories.concat(womans)}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <TouchableNativeFeedback key={Object.keys(item)}>
                 <View style={draw.buttonContainer}>
                   <IconIo name={'heart-outline'} size={20} color={'black'} />
@@ -67,7 +67,7 @@ export const CategoryDrawer = ({male}) => {
   );
 };
 
-export function CategoryHorizontal({male}) {
+export function CategoryHorizontal({ male }) {
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
       <View style={styles.content}>
@@ -77,7 +77,7 @@ export function CategoryHorizontal({male}) {
   );
 }
 
-function Category({Component}) {
+function Category({ Component }) {
   const [male, setMale] = useState(true);
   const onChangeMale = useCallback(() => {
     setMale((prev) => !prev);
@@ -90,8 +90,9 @@ function Category({Component}) {
           <View
             style={[
               styles.choiceSex,
-              {backgroundColor: male ? '#339af0' : '#fff'},
-            ]}>
+              { backgroundColor: male ? '#339af0' : '#fff' },
+            ]}
+          >
             <Text>남자</Text>
           </View>
         </TouchableNativeFeedback>
@@ -99,8 +100,9 @@ function Category({Component}) {
           <View
             style={[
               styles.choiceSex,
-              {backgroundColor: male ? '#fff' : '#fcc2d7'},
-            ]}>
+              { backgroundColor: male ? '#fff' : '#fcc2d7' },
+            ]}
+          >
             <Text>여자</Text>
           </View>
         </TouchableNativeFeedback>
@@ -110,7 +112,7 @@ function Category({Component}) {
   );
 }
 
-function CategoryItems({male}) {
+function CategoryItems({ male }) {
   return (
     <>
       {male
@@ -133,12 +135,12 @@ function CategoryItems({male}) {
   );
 }
 
-function CategoryItem({name}) {
+function CategoryItem({ name }) {
   return (
     <TouchableNativeFeedback onPress={() => {}}>
       <View style={styles.Item}>
-        <IconIo name="shirt" size={30} color="black" />
-        <Text style={{textAlign: 'center'}}>{name}</Text>
+        <IconIo name='shirt' size={30} color='black' />
+        <Text style={{ textAlign: 'center' }}>{name}</Text>
       </View>
     </TouchableNativeFeedback>
   );
@@ -158,6 +160,7 @@ const styles = StyleSheet.create({
   choiceSexBox: {
     flexDirection: 'row',
     justifyContent: 'center',
+    marginTop: 10,
   },
   Item: {
     paddingVertical: 5,

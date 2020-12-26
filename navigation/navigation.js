@@ -61,7 +61,12 @@ function CouponTab() {
 
 function MyPageStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTopInsetEnabled: false,
+        stackAnimation: 'slide_from_right',
+      }}
+    >
       <Stack.Screen
         name='MyPage'
         component={MyPage}

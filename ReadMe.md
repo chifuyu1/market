@@ -1,6 +1,6 @@
 developing market app
 
-<hr /><strong>required</strong>: react native 0.63.4 or next, android studio, android API version 10 or higher.
+<hr /><strong>required</strong>: react native 0.63.4 or next, android 10 or higher.
 
 <hr /><strong>note</strong>: this app support only android.<hr />
 

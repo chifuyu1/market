@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -7,7 +7,7 @@ import {
   Keyboard,
   Text,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import IconSL from 'react-native-vector-icons/SimpleLineIcons';
 
@@ -20,13 +20,13 @@ export function HomeHeader() {
     <>
       <View style={HomeStyles.inputContainer}>
         <View style={HomeStyles.box}>
-          <IconIo name="search" size={20} color="black" />
+          <IconIo name='search' size={20} color='black' />
           <TouchableNativeFeedback onPress={Keyboard.dismiss}>
             <TextInput
-              placeholder="상품 또는 마켓 검색!"
+              placeholder='상품 또는 마켓 검색!'
               style={HomeStyles.input}
               value={keyword}
-              keyboardType="web-search"
+              keyboardType='web-search'
               onChangeText={onChangeKeyword}
             />
           </TouchableNativeFeedback>
@@ -58,7 +58,7 @@ const HomeStyles = StyleSheet.create({
   },
 });
 
-function Header({Component, openDrawer, title}) {
+function Header({ Component, openDrawer, title }) {
   const navigation = useNavigation();
 
   return (
@@ -67,22 +67,23 @@ function Header({Component, openDrawer, title}) {
         <View style={styles.menuTitle}>
           <TouchableNativeFeedback onPress={openDrawer}>
             <View style={styles.icon}>
-              <IconIo name={'menu-outline'} size={20} color="black" />
+              <IconIo name={'menu-outline'} size={20} color='black' />
             </View>
           </TouchableNativeFeedback>
           {title ? <Text>{title}</Text> : <></>}
         </View>
         {Component ? <Component /> : <></>}
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <TouchableNativeFeedback onPress={() => console.log('bell')}>
             <View style={styles.icon}>
-              <IconSL name="bell" size={20} color="black" />
+              <IconSL name='bell' size={20} color='black' />
             </View>
           </TouchableNativeFeedback>
           <TouchableNativeFeedback
-            onPress={() => navigation.navigate('마이페이지')}>
+            onPress={() => navigation.navigate('마이페이지')}
+          >
             <View style={styles.icon}>
-              <IconIo name={'cart-outline'} size={20} color="black" />
+              <IconIo name={'cart-outline'} size={20} color='black' />
             </View>
           </TouchableNativeFeedback>
         </View>
@@ -94,9 +95,8 @@ function Header({Component, openDrawer, title}) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: 40,
+    height: 60,
     alignItems: 'center',
-    marginBottom: 10,
     justifyContent: 'space-between',
     backgroundColor: '#fff',
     elevation: 4,

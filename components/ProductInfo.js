@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
   FlatList,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import { priceComma } from '../util/price';
 import Header from './Header';
@@ -21,6 +21,7 @@ import BitSwiper from 'react-native-bit-swiper';
 function ProductInfo1({ route, openDrawer }) {
   const [buy, setBuy] = useState(false);
   const navigation = useNavigation();
+  const routes = useRoute();
 
   useLayoutEffect(() => {
     navigation.setOptions({ tabBarVisible: false });
@@ -31,7 +32,7 @@ function ProductInfo1({ route, openDrawer }) {
   }, [navigation]);
 
   console.log('productinfo');
-  const { info } = route.params;
+  const { info } = routes.params;
   // const params = navigation.
   const { uri, discount, price, storeName, title, quantity } = info;
   const data = [
@@ -55,6 +56,19 @@ function ProductInfo1({ route, openDrawer }) {
                 />
               </View>
             )}
+            paginateStyle={{
+              marginTop: -20,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            paginateActiveDotStyle={{
+              backgroundColor: 'rgba(255, 0, 0, .8)',
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              marginHorizontal: 3,
+            }}
           />
         </View>
         <View style={styles.productInfo}>
@@ -87,10 +101,10 @@ function ProductInfo1({ route, openDrawer }) {
   );
 }
 
-const ProductInfo = ({ route }) => {
+const ProductInfo = () => {
   return (
     <>
-      <DrawerLayout Component={() => <ProductInfo1 route={route} />} />
+      <DrawerLayout Component={ProductInfo1} />
     </>
   );
 };
@@ -121,19 +135,19 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 10,
     borderStyle: 'solid',
-    borderColor: `#2196F3`,
+    borderColor: '#2196F3',
     borderWidth: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   couponText: {
-    color: `#2196F3`,
+    color: '#2196F3',
     fontWeight: 'bold',
   },
   productCodeText: {
     fontSize: 12,
-    color: `rgba(0, 0, 0, 0.5)`,
+    color: 'rgba(0, 0, 0, 0.5)',
     // 색으로 바꿀 것
   },
   paymentBar: {
