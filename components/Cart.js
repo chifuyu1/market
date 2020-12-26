@@ -9,7 +9,8 @@ import {
   Image,
 } from 'react-native';
 import { priceComma } from '../util/price';
-import Popup, { PurchasePopup, Quantity } from './Popup';
+import Popup from './Popup';
+import PurchasePopup from './product/PurchasePopup';
 
 function CartItem({ item }) {
   const [checkBox, setCheckBox] = useState(false);

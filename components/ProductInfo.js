@@ -14,7 +14,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import { priceComma } from '../util/price';
 import Header from './Header';
-import Popup, { CouponPopup, PurchasePopup } from './Popup';
+import Popup, { CouponPopup } from './Popup';
+import PurchasePopup from './product/PurchasePopup';
 import DrawerLayout from './DrawerLayout';
 import BitSwiper from 'react-native-bit-swiper';
 
