@@ -21,9 +21,17 @@ import {
 } from 'react-native';
 
 function Temp() {
+  const [nice, setNice] = useState(false);
+
   return (
-    <View style={styles.container}>
-      <Button onPress={() => {}} title='logout' />
+    <View
+      style={
+        nice
+          ? [styles.container]
+          : [styles.container, { backgroundColor: 'green' }]
+      }
+    >
+      <Button onPress={() => setNice((prev) => !prev)} title='change!' />
     </View>
   );
 }

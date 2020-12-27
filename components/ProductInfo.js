@@ -90,6 +90,7 @@ function ProductInfo1({ route, openDrawer }) {
         </TouchableWithoutFeedback>
         <Popup
           visible={buy}
+          setVisible={setBuy}
           Component={() => <PurchasePopup setVisible={setBuy} />}
         />
         <TouchableNativeFeedback onPress={() => setBuy(true)}>
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
   paymentBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 60,
+    height: 80,
     paddingVertical: 5,
     paddingHorizontal: 5,
     backgroundColor: theme.container.darken,
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: theme.highlight_pressable.background,
     borderRadius: 10,
-    height: 40,
+    height: 60,
     marginLeft: 10,
   },
   paymentText: {

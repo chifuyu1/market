@@ -8,6 +8,7 @@ export const theme = {
     darken: `#fafafa`,
     non_active: `#868e96`,
     text: `#000`,
+    error: `#f03e3e`,
   },
   faint: {
     text: `#797c7f`,
@@ -46,7 +47,7 @@ export const theme = {
   pressable: {
     border: `#dee2e6`,
     background: `#fff`,
-    text: `#fff`,
+    text: `#000`,
   },
   highlight_pressable: {
     border: ``,

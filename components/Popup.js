@@ -1,18 +1,28 @@
 import React from 'react';
-import { View, StyleSheet, Modal, Dimensions, Keyboard } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Modal,
+  Dimensions,
+  Keyboard,
+  ScrollView,
+} from 'react-native';
 import { theme } from '../config/config';
 
-function Popup({ visible, Component }) {
+function Popup({ visible, setVisible, Component }) {
   return (
     <Modal
       animationType='slide'
       transparent
       visible={visible}
       onDismiss={Keyboard.dismiss}
+      onRequestClose={() => setVisible(false)}
     >
       <View style={styles.modalBackground}>
         <View style={styles.modalContainer}>
-          {Component ? <Component /> : <></>}
+          <ScrollView contentContainerStyle={{ flex: 1 }}>
+            {Component ? <Component /> : <></>}
+          </ScrollView>
         </View>
       </View>
     </Modal>

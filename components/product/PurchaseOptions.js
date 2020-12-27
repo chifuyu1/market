@@ -60,35 +60,33 @@ export default memo(function PurchaseOptions({
   });
 
   return (
-    <>
-      <View style={optionStyle.optionContainer}>
-        <TouchableNativeFeedback onPress={() => setOpen((prev) => !prev)}>
-          <View>
-            <View style={optionStyle.optionBox}>
-              <Text>{choice}</Text>
-              <IconIo
-                name={!open ? 'caret-down-outline' : 'caret-up-outline'}
-                size={14}
-                color='black'
-              />
-            </View>
+    <View style={optionStyle.optionContainer}>
+      <TouchableNativeFeedback onPress={() => setOpen((prev) => !prev)}>
+        <View>
+          <View style={optionStyle.optionBox}>
+            <Text>{choice}</Text>
+            <IconIo
+              name={!open ? 'caret-down-outline' : 'caret-up-outline'}
+              size={14}
+              color='black'
+            />
           </View>
-        </TouchableNativeFeedback>
-        {open ? (
-          options.map((element, index) => (
-            <TouchableNativeFeedback
-              onPress={() => onChoice(element)}
-              key={index}
-            >
-              <View style={optionStyle.optionItem}>
-                <Text>{element}</Text>
-              </View>
-            </TouchableNativeFeedback>
-          ))
-        ) : (
-          <></>
-        )}
-      </View>
-    </>
+        </View>
+      </TouchableNativeFeedback>
+      {open ? (
+        options.map((element, index) => (
+          <TouchableNativeFeedback
+            onPress={() => onChoice(element)}
+            key={index}
+          >
+            <View style={optionStyle.optionItem}>
+              <Text>{element}</Text>
+            </View>
+          </TouchableNativeFeedback>
+        ))
+      ) : (
+        <></>
+      )}
+    </View>
   );
 });

@@ -1,20 +1,20 @@
 import React, { memo } from 'react';
+import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { theme } from '../config/config';
 import MainScreen from '../screens/MainScreen';
 import FavoriteScreen from '../screens/FavoriteScreen';
 import MyPage from '../screens/MyPage';
 import ProductInfo from '../components/ProductInfo';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { LogBox } from 'react-native';
 import Coupon from '../components/Coupon';
-import Temp from '../screens/Temp';
-import { OpenSource, ServiceTerm, Notice } from '../components/InfoDetail';
 import Cart from '../components/Cart';
-import { theme } from '../config/config';
+import BuyForm from '../components/BuyForm';
+import { OpenSource, ServiceTerm, Notice } from '../components/InfoDetail';
 
 LogBox.ignoreAllLogs();
 
@@ -36,7 +36,12 @@ function FavoriteScreenStack() {
 }
 function MainScreenStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTopInsetEnabled: false,
+        contentStyle: { backgroundColor: theme.container.background },
+      }}
+    >
       <Stack.Screen
         name='Home'
         component={MainScreen}
@@ -46,6 +51,11 @@ function MainScreenStack() {
         name='ProductInfo'
         component={ProductInfo}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='BuyForm'
+        component={BuyForm}
+        options={{ headerTitle: '주문/결제' }}
       />
     </Stack.Navigator>
   );

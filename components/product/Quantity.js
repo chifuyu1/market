@@ -15,7 +15,6 @@ export default function Quantity({ setQuantityOpen, setChoiceQuantity }) {
   const onSet = useCallback(
     (item) => {
       dispatch({ type: SET_OPTION_QUANTITY, data: item });
-
       setChoiceQuantity(item);
       setQuantityOpen(false);
     },
@@ -38,7 +37,6 @@ export default function Quantity({ setQuantityOpen, setChoiceQuantity }) {
                   style={{
                     fontSize: 30,
                     lineHeight: 60,
-                    width: '100%',
                     textAlign: 'center',
                   }}
                 >
@@ -48,8 +46,8 @@ export default function Quantity({ setQuantityOpen, setChoiceQuantity }) {
             </TouchableNativeFeedback>
           ))}
         </ScrollView>
+        <Button title='닫기' onPress={() => setQuantityOpen(false)} />
       </View>
-      <Button title='닫기' onPress={() => setQuantityOpen(false)} />
     </>
   );
 }
@@ -59,9 +57,7 @@ const quantityStyle = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     paddingVertical: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
   closeContainer: {
     paddingHorizontal: 10,

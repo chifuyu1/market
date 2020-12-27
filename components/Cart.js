@@ -47,6 +47,7 @@ function CartItem({ item }) {
             <Popup
               Component={() => <PurchasePopup setVisible={setOption} />}
               visible={option}
+              setVisible={setOption}
             />
             <TouchableNativeFeedback onPress={() => setOption(true)}>
               <View style={styles.productOption}>
@@ -57,6 +58,7 @@ function CartItem({ item }) {
             <Popup
               Component={() => <Quantity setVisible={setQuantity} />}
               visible={quantity}
+              setVisible={setOption}
             />
             <TouchableNativeFeedback onPress={() => setQuantity(true)}>
               <View style={styles.productOption}>
