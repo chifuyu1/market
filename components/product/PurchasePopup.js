@@ -145,7 +145,12 @@ export default memo(function PurchasePopup({ setVisible, options }) {
               </View>
             </View>
             <View style={purcharseStyle.bottomBtn}>
-              <TouchableNativeFeedback onPress={() => setVisible(false)}>
+              <TouchableNativeFeedback
+                onPress={() => {
+                  setVisible(false);
+                  navigation.navigate('OrderList');
+                }}
+              >
                 <View
                   style={[
                     purcharseStyle.pressContainer,
@@ -157,7 +162,10 @@ export default memo(function PurchasePopup({ setVisible, options }) {
                 </View>
               </TouchableNativeFeedback>
               <TouchableNativeFeedback
-                onPress={() => navigation.navigate('BuyForm')}
+                onPress={() => {
+                  setVisible(false);
+                  navigation.navigate('BuyForm');
+                }}
               >
                 <View
                   style={[

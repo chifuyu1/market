@@ -19,20 +19,14 @@ import {
   Appearance,
   BackHandler,
 } from 'react-native';
+import BuyInput from '../components/buy/BuyInput';
 
 function Temp() {
-  const [nice, setNice] = useState(false);
-
+  const data = `무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇`;
   return (
-    <View
-      style={
-        nice
-          ? [styles.container]
-          : [styles.container, { backgroundColor: 'green' }]
-      }
-    >
-      <Button onPress={() => setNice((prev) => !prev)} title='change!' />
-    </View>
+    <Text numberOfLines={1} ellipsizeMode='tail'>
+      {data}
+    </Text>
   );
 }
 

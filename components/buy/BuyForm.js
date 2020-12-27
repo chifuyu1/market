@@ -1,18 +1,18 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
   ScrollView,
-  StyleSheet,
-  TextInput,
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
+  Image,
 } from 'react-native';
-import { theme } from '../config/config';
+import { theme } from '../../config/config';
 import IconIo from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
-import { priceComma } from '../util/price';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { priceComma } from '../../util/price';
 import { RadioButton } from 'react-native-paper';
+import { formStyles } from './buyFormStyles';
 
 function BuyForm() {
   const [orderProduct, setOrderProduct] = useState(false);
@@ -22,31 +22,42 @@ function BuyForm() {
   const [end, setEnd] = useState(false);
   const ref = useRef(null);
   const navigation = useNavigation();
+  const route = useRoute();
   const [destination, setDestination] = useState({
     name: '',
     phoneNumber: '',
     address: '',
     detailAddress: '',
   });
+  const [refund, setRefund] = useState({
+    refundBankNumber: '',
+    refundName: '',
+    bankKind: '',
+  });
 
   const onViewPruduct = useCallback(() => setOrderProduct((prev) => !prev), []);
   const onViewPay = useCallback(() => setOrderPay((prev) => !prev), []);
 
-  const info = {
-    name: '김배송',
-    phoneNumber: '010-0000-0000',
-    address: '서울 강남구 역삼동 231-141',
-    detailAddress: '빌딩3층',
-  };
-  const refund = {
-    refundName: '김환불',
-    bankKind: '농협',
-    bankNumber: '12312312412312',
-  };
-  const { name, phoneNumber, address, detailAddress } = info;
-  const { refundName, bankNumber, bankKind } = refund;
-  const amount = 3;
-  const payMoney = 29800;
+  useEffect(() => {
+    if (route.params?.name) {
+      setDestination({
+        name: route.params.name,
+        phoneNumber: route.params.phone,
+        address: `${route.params.postNumber} ${route.params.address}`,
+        detailAddress: route.params.detailAddress,
+      });
+    }
+    if (route.params?.refundName) {
+      setRefund({
+        refundBankNumber: route.params.refundBankNumber,
+        refundName: route.params.refundName,
+        bankKind: route.params.bankKind,
+      });
+    }
+  }, [route]);
+
+  const { name, phoneNumber, address, detailAddress } = destination;
+  const { refundName, refundBankNumber, bankKind } = refund;
   const payToWay = [
     {
       name: '간편결제',
@@ -59,6 +70,12 @@ function BuyForm() {
     },
     { name: '휴대폰결제', payname: [] },
   ];
+  // temp variable
+  const amount = 3;
+  const payMoney = 29800;
+  const uri = `https://image.chosun.com/sitedata/image/201904/29/2019042902668_0.jpg`;
+  const productName = `[당일출고] 스타일신발 blablablablablablablablablablabla`;
+  const price = 29800;
 
   return (
     <>
@@ -72,12 +89,31 @@ function BuyForm() {
         }}
       >
         <TouchableWithoutFeedback onPress={onViewPruduct}>
-          <View style={styles.repeatContainer}>
-            <View style={styles.repeatLeft}>
-              <Text style={styles.repeatTitle}>주문상품 총 {amount}개</Text>
-              <Text style={styles.inputTag}>전체 무료배송</Text>
+          <View style={formStyles.repeatContainer}>
+            <View style={formStyles.repeatLeft}>
+              <Text style={formStyles.repeatTitle}>주문상품 총 {amount}개</Text>
+              <Text style={formStyles.inputTag}>전체 무료배송</Text>
+              {orderProduct && (
+                <View style={{ marginVertical: 10 }}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Image
+                      source={{ uri: uri }}
+                      style={{ width: 80, height: 80 }}
+                    />
+                    <View style={formStyles.productInfo}>
+                      <Text numberOfLines={1}>{productName}</Text>
+                      <Text>
+                        {priceComma(price)}원 수량 {amount}개
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={formStyles.choicedOptions}>
+                    <Text>소라/FREE</Text>
+                  </View>
+                </View>
+              )}
             </View>
-            <View>
+            <View style={{ marginLeft: 10 }}>
               {orderProduct ? (
                 <IconIo
                   name='caret-up-outline'
@@ -94,53 +130,59 @@ function BuyForm() {
             </View>
           </View>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => console.log(`press in!`)}>
-          <View style={styles.repeatContainer}>
-            <View style={styles.repeatLeft}>
-              <Text style={styles.repeatTitle}>배송지 정보</Text>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate('BuyInput')}
+        >
+          <View style={formStyles.repeatContainer}>
+            <View style={formStyles.repeatLeft}>
+              <Text style={formStyles.repeatTitle}>배송지 정보</Text>
               {name.length > 0 &&
               phoneNumber.length > 0 &&
               address.length > 0 &&
               detailAddress.length > 0 ? (
                 <>
                   <Text
-                    style={styles.variableText}
+                    style={formStyles.variableText}
                   >{`${name} ${phoneNumber}`}</Text>
-                  <Text style={styles.variableText}>{address}</Text>
-                  <Text style={styles.variableText}>{detailAddress}</Text>
+                  <Text style={formStyles.variableText}>{address}</Text>
+                  <Text style={formStyles.variableText}>{detailAddress}</Text>
                 </>
               ) : (
-                <Text style={styles.repeatInput}>배송지를 입력해주세요.</Text>
-              )}
-            </View>
-            <View>
-              <Text style={styles.inputTag}>입력하기</Text>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => console.log(`press in!`)}>
-          <View style={styles.repeatContainer}>
-            <View style={styles.repeatLeft}>
-              <Text style={styles.repeatTitle}>환불 계좌</Text>
-              {refundName && bankNumber && bankKind ? (
-                <>
-                  <Text
-                    style={styles.variableText}
-                  >{`${refundName} | ${bankKind}`}</Text>
-                  <Text style={styles.variableText}>{bankNumber}</Text>
-                </>
-              ) : (
-                <Text style={styles.repeatInput}>
-                  환불받을 계좌를 입력해주세요.
+                <Text style={formStyles.repeatInput}>
+                  배송지를 입력해주세요.
                 </Text>
               )}
             </View>
             <View>
-              <Text style={styles.inputTag}>입력하기</Text>
+              <Text style={formStyles.inputTag}>입력하기</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
-        <View style={styles.repeatContainer}>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate('BuyRefund')}
+        >
+          <View style={formStyles.repeatContainer}>
+            <View style={formStyles.repeatLeft}>
+              <Text style={formStyles.repeatTitle}>환불 계좌</Text>
+              {refundName.length > 0 ? (
+                <>
+                  <Text
+                    style={formStyles.variableText}
+                  >{`${refundName} | ${bankKind}`}</Text>
+                  <Text style={formStyles.variableText}>
+                    {refundBankNumber}
+                  </Text>
+                </>
+              ) : (
+                <Text style={formStyles.repeatInput}>
+                  환불받을 계좌를 입력해주세요.
+                </Text>
+              )}
+            </View>
+            <Text style={formStyles.inputTag}>입력하기</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <View style={formStyles.repeatContainer}>
           <TouchableWithoutFeedback onPress={onViewPay}>
             <View
               style={{
@@ -150,8 +192,8 @@ function BuyForm() {
                 flex: 1,
               }}
             >
-              <View style={styles.repeatLeft}>
-                <Text style={styles.repeatTitle}>
+              <View style={formStyles.repeatLeft}>
+                <Text style={formStyles.repeatTitle}>
                   결제금액{' '}
                   {orderPay ? (
                     <></>
@@ -180,11 +222,11 @@ function BuyForm() {
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <View style={[styles.payway]}>
-          <Text style={[styles.repeatTitle, { marginVertical: 10 }]}>
+        <View style={[formStyles.payway]}>
+          <Text style={[formStyles.repeatTitle, { marginVertical: 10 }]}>
             결제방법
           </Text>
-          <View style={styles.payAdditionalInfo}>
+          <View style={formStyles.payAdditionalInfo}>
             <IconIo
               name='information-circle-outline'
               size={16}
@@ -195,7 +237,7 @@ function BuyForm() {
               무통장 입금 결제시 적립금 1%를 추가로 드려요
             </Text>
           </View>
-          <View style={styles.paywayContainer}>
+          <View style={formStyles.paywayContainer}>
             {payToWay.map((element, index, arr) => {
               if (index === arr.length - 1) {
                 return (
@@ -210,16 +252,24 @@ function BuyForm() {
                       style={
                         orderPayname === element.name
                           ? [
-                              styles.paywayBtn,
+                              formStyles.paywayBtn,
                               {
                                 backgroundColor:
                                   theme.highlight_pressable.background,
                               },
                             ]
-                          : [styles.paywayBtn]
+                          : [formStyles.paywayBtn]
                       }
                     >
-                      <Text>{element.name}</Text>
+                      <Text
+                        style={
+                          orderPayname === element.name
+                            ? [{ color: theme.highlight_pressable.text }]
+                            : [{ color: theme.container.text }]
+                        }
+                      >
+                        {element.name}
+                      </Text>
                     </View>
                   </TouchableNativeFeedback>
                 );
@@ -237,16 +287,24 @@ function BuyForm() {
                       style={
                         orderPayname === element.name
                           ? [
-                              styles.paywayBtn,
+                              formStyles.paywayBtn,
                               {
                                 backgroundColor:
                                   theme.highlight_pressable.background,
                               },
                             ]
-                          : [styles.paywayBtn]
+                          : [formStyles.paywayBtn]
                       }
                     >
-                      <Text>{element.name}</Text>
+                      <Text
+                        style={
+                          orderPayname === element.name
+                            ? [{ color: theme.highlight_pressable.text }]
+                            : [{ color: theme.container.text }]
+                        }
+                      >
+                        {element.name}
+                      </Text>
                     </View>
                   </TouchableNativeFeedback>
                   <View style={{ marginRight: 5 }} />
@@ -254,7 +312,7 @@ function BuyForm() {
               );
             })}
           </View>
-          <View style={styles.payPlatform}>
+          <View style={formStyles.payPlatform}>
             <RadioButton.Group
               onValueChange={(named) => setPaynameLabel(named)}
             >
@@ -278,87 +336,15 @@ function BuyForm() {
           </View>
         </View>
       </ScrollView>
-      <View style={styles.paymentBar}>
+      <View style={formStyles.paymentBar}>
         <TouchableNativeFeedback onPress={() => {}}>
-          <View style={styles.payment}>
-            <Text style={styles.paymentText}>29,800원 결제하기</Text>
+          <View style={formStyles.payment}>
+            <Text style={formStyles.paymentText}>29,800원 결제하기</Text>
           </View>
         </TouchableNativeFeedback>
       </View>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  repeatContainer: {
-    paddingVertical: 20,
-    paddingHorizontal: 10,
-    flexDirection: `row`,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottomColor: theme.faint.border,
-    borderBottomWidth: 1,
-  },
-  repeatLeft: {
-    justifyContent: 'center',
-  },
-  repeatTitle: {
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-  repeatInput: {
-    color: theme.container.error,
-  },
-  variableText: {
-    color: theme.container.text,
-    lineHeight: 21,
-  },
-  inputTag: {
-    color: theme.container.highlight_text,
-  },
-  payway: {
-    paddingVertical: 20,
-    paddingHorizontal: 10,
-  },
-  payAdditionalInfo: {
-    flexDirection: `row`,
-    alignItems: `center`,
-    marginVertical: 10,
-  },
-  paywayContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  paywayBtn: {
-    flex: 1,
-    alignItems: 'center',
-    paddingVertical: 10,
-    borderRadius: 5,
-    backgroundColor: theme.pressable.background,
-    borderColor: theme.pressable.border,
-    borderWidth: 1,
-  },
-  payPlatform: {
-    paddingVertical: 20,
-  },
-  paymentBar: {
-    height: 80,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    backgroundColor: theme.container.darken,
-    elevation: 2,
-  },
-  payment: {
-    backgroundColor: theme.highlight_pressable.background,
-    flex: 1,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paymentText: {
-    color: theme.highlight_pressable.text,
-    fontSize: 20,
-  },
-});
 
 export default BuyForm;

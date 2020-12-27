@@ -13,8 +13,10 @@ import IconIo from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Coupon from '../components/Coupon';
 import Cart from '../components/Cart';
-import BuyForm from '../components/BuyForm';
+import BuyForm from '../components/buy/BuyForm';
 import { OpenSource, ServiceTerm, Notice } from '../components/InfoDetail';
+import BuyInput from '../components/buy/BuyInput';
+import BuyBank from '../components/buy/BuyBank';
 
 LogBox.ignoreAllLogs();
 
@@ -56,6 +58,16 @@ function MainScreenStack() {
         name='BuyForm'
         component={BuyForm}
         options={{ headerTitle: '주문/결제' }}
+      />
+      <Stack.Screen
+        name='BuyInput'
+        component={BuyInput}
+        options={{ headerTitle: '배송지 입력' }}
+      />
+      <Stack.Screen
+        name='BuyRefund'
+        component={BuyBank}
+        options={{ headerTitle: '환불계좌 입력' }}
       />
     </Stack.Navigator>
   );

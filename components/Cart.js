@@ -1,4 +1,5 @@
 import CheckBox from '@react-native-community/checkbox';
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   View,
@@ -85,6 +86,7 @@ function CartItem({ item }) {
 
 function Cart() {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const navigation = useNavigation();
 
   const arr = [
     {
@@ -158,7 +160,7 @@ function Cart() {
         </View>
       </ScrollView>
       <View style={styles.payment}>
-        <TouchableNativeFeedback onPress={() => {}}>
+        <TouchableNativeFeedback onPress={() => navigation.navigate('BuyForm')}>
           <View style={styles.paymentBtn}>
             <Text style={styles.paymentText}>37620원 주문하기</Text>
           </View>
