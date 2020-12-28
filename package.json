@@ -7,8 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint .",
-    "postinstall": "rndebugger-open"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@react-native-community/checkbox": "^0.5.6",
@@ -25,7 +24,6 @@
     "react": "^17.0.1",
     "react-native": "^0.63.4",
     "react-native-bit-swiper": "^1.1.8",
-    "react-native-debugger-open": "^0.3.25",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-paper": "^4.5.0",
     "react-native-reanimated": "^1.13.2",

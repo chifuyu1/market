@@ -29,7 +29,7 @@ export default memo(function PurchasePopup({ setVisible, options }) {
   const purcharseStyle = StyleSheet.create({
     container: {
       flex: 1,
-      paddingVertical: 20,
+      paddingTop: 20,
       justifyContent: 'space-between',
     },
     pressContainer: {

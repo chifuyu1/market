@@ -11,6 +11,8 @@ import {
 import IconIo from 'react-native-vector-icons/Ionicons';
 import { theme } from '../config/config';
 import { categories, womans } from '../dummy/dummy';
+import BottomTwoButton from './BottomTwoButton';
+import { formStyles } from './buy/buyFormStyles';
 
 export const CategoryDrawer = ({ male }) => {
   const draw = StyleSheet.create({
@@ -81,38 +83,76 @@ export function CategoryHorizontal({ male }) {
 function Category({ Component }) {
   const [male, setMale] = useState(true);
   const onChangeMale = useCallback(() => {
-    setMale((prev) => !prev);
+    setMale(true);
   }, []);
+  const onChangeFemale = useCallback(() => {
+    setMale(false);
+  });
 
   return (
     <>
-      <View style={styles.choiceSexBox}>
+      <View
+        style={[
+          formStyles.paymentBar,
+          { flexDirection: 'row', elevation: 0, backgroundColor: `#fff` },
+        ]}
+      >
         <TouchableNativeFeedback onPress={onChangeMale}>
           <View
-            style={[
-              styles.choiceSex,
-              {
-                backgroundColor: male
-                  ? theme.male.active
-                  : theme.male.non_active,
-              },
-            ]}
+            style={
+              male
+                ? [
+                    formStyles.payment,
+                    {
+                      marginRight: 5,
+                      backgroundColor: theme.male.active,
+                      borderColor: theme.container.highlight_border,
+                      borderWidth: 1,
+                      borderStyle: `solid`,
+                    },
+                  ]
+                : [
+                    formStyles.payment,
+                    {
+                      marginRight: 5,
+                      backgroundColor: theme.male.non_active,
+                      borderColor: theme.pressable.border,
+                      borderWidth: 1,
+                      borderStyle: `solid`,
+                    },
+                  ]
+            }
           >
-            <Text>남자</Text>
+            <Text style={{ color: theme.container.text }}>남자</Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback onPress={onChangeMale}>
+        <TouchableNativeFeedback onPress={onChangeFemale}>
           <View
-            style={[
-              styles.choiceSex,
-              {
-                backgroundColor: male
-                  ? theme.female.non_active
-                  : theme.female.active,
-              },
-            ]}
+            style={
+              !male
+                ? [
+                    formStyles.payment,
+                    {
+                      marginRight: 5,
+                      backgroundColor: theme.female.active,
+                      borderColor: theme.pressable.border,
+                      borderWidth: 1,
+                      borderStyle: `solid`,
+                    },
+                  ]
+                : [
+                    formStyles.payment,
+                    {
+                      marginRight: 5,
+                      backgroundColor: theme.female.non_active,
+                      borderColor: theme.pressable.border,
+                      borderWidth: 1,
+                      borderStyle: `solid`,
+                    },
+                  ]
+            }
           >
-            <Text>여자</Text>
+            <Text style={{ color: theme.container.text }}>여자</Text>
           </View>
         </TouchableNativeFeedback>
       </View>

@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -17,8 +16,8 @@ import BuyForm from '../components/buy/BuyForm';
 import { OpenSource, ServiceTerm, Notice } from '../components/InfoDetail';
 import BuyInput from '../components/buy/BuyInput';
 import BuyBank from '../components/buy/BuyBank';
-
-LogBox.ignoreAllLogs();
+import ManagerMain from '../components/manager/ManagerMain';
+import ManagerAdd from '../components/manager/ManagerAdd';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -126,6 +125,16 @@ function MyPageStack() {
         options={{
           headerTitle: `서비스 이용약관 및 개인정보 수집`,
         }}
+      />
+      <Stack.Screen
+        name='ManagerHome'
+        component={ManagerMain}
+        options={{ headerTitle: '스토어 관리' }}
+      />
+      <Stack.Screen
+        name='ManagerAdd'
+        component={ManagerAdd}
+        options={{ headerTitle: '상품 추가하기' }}
       />
     </Stack.Navigator>
   );

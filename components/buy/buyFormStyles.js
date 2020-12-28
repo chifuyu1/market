@@ -32,7 +32,6 @@ export const formStyles = StyleSheet.create({
     flex: 1,
   },
   choicedOptions: {
-    flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 5,

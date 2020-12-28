@@ -6,8 +6,8 @@
  * @flow strict-local
  */
 
-import React, { memo } from 'react';
-import { Platform, StatusBar, View } from 'react-native';
+import React, { memo, useEffect } from 'react';
+import { LogBox, Platform, StatusBar, View } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 import createSagaMiddleware from 'redux-saga';
 import { applyMiddleware, compose, createStore } from 'redux';
@@ -32,6 +32,9 @@ const store = createStore(rootReducer, enhancer);
 saga.run(rootSaga);
 
 const App = () => {
+  useEffect(() => {
+    LogBox.ignoreAllLogs();
+  }, []);
   if (Platform.OS !== 'android' || Platform.Version < 29)
     return <PlatformError />;
   return (

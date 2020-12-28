@@ -15,17 +15,18 @@ import DrawerLayout from '../components/DrawerLayout';
 import Header from '../components/Header';
 import Information from '../components/Information';
 import Login from '../components/Login';
+import { theme } from '../config/config';
 
 const MyPageScreens = ({ openDrawer }) => {
   const navigation = useNavigation();
   return (
-    <>
+    <View style={{ flex: 1 }}>
       <Header title={'마이페이지'} openDrawer={openDrawer} />
       <View style={styles.container}>
         <Login />
         <Information />
       </View>
-    </>
+    </View>
   );
 };
 

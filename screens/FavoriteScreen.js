@@ -25,7 +25,7 @@ function FavoriteListHeader() {
   return (
     <>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>찜한 상품</Text>
+        <Text style={styles.headerContainerText}>찜한 상품</Text>
       </View>
       <View style={styles.headerBox}>
         <View>
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 10,
   },
-  headerText: {
+  headerContainerText: {
     fontWeight: 'bold',
     fontSize: 18,
   },

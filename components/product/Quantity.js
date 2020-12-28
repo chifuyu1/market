@@ -8,7 +8,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { theme } from '../../config/config';
 import { SET_OPTION_QUANTITY } from '../../reducer/product';
+import BottomOneButton from '../BottomOneButton';
 
 export default function Quantity({ setQuantityOpen, setChoiceQuantity }) {
   const dispatch = useDispatch();
@@ -46,8 +48,8 @@ export default function Quantity({ setQuantityOpen, setChoiceQuantity }) {
             </TouchableNativeFeedback>
           ))}
         </ScrollView>
-        <Button title='닫기' onPress={() => setQuantityOpen(false)} />
       </View>
+      <BottomOneButton action={() => setQuantityOpen(false)} content={`닫기`} />
     </>
   );
 }

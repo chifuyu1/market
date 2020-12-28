@@ -12,6 +12,7 @@ import { theme } from '../../config/config';
 import PurchasePopup from '../product/PurchasePopup';
 import { priceComma } from '../../util/price';
 import Quantity from '../product/Quantity';
+import { ProductListSecond } from '../ProductList';
 
 export default React.memo(function CartItem({ item }) {
   const [checkBox, setCheckBox] = useState(false);
@@ -33,16 +34,12 @@ export default React.memo(function CartItem({ item }) {
           />
         </View>
         <View style={styles.productInfo}>
-          <View style={styles.productImageContainer}>
-            <Image source={{ uri: item.uri }} style={styles.productImage} />
-            <View style={{ justifyContent: 'space-around', marginLeft: 5 }}>
-              <Text numberOfLines={10}>{item.title}</Text>
-              <Text>{priceComma(item.price)}</Text>
-            </View>
-          </View>
-          <View style={styles.choicedOptions}>
-            <Text>소라/FREE</Text>
-          </View>
+          <ProductListSecond
+            options={`소라/FREE`}
+            uri={item.uri}
+            title={item.title}
+            price={item.price}
+          />
           <View style={styles.productOptions}>
             <Popup
               Component={() => <PurchasePopup setVisible={setOption} />}
@@ -89,26 +86,11 @@ const styles = StyleSheet.create({
     backgroundColor: theme.container.background,
     paddingHorizontal: 10,
   },
-  productImageContainer: {
-    flexDirection: 'row',
-  },
   productContentContainer: {
     flexDirection: 'row',
   },
   productInfo: {
     flex: 1,
-  },
-  productImage: {
-    width: 80,
-    height: 80,
-  },
-  choicedOptions: {
-    flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    marginVertical: 10,
-    backgroundColor: theme.pressable.border,
   },
   productOptions: {
     flexDirection: 'row',
