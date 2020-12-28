@@ -15,7 +15,7 @@ public class ProductDAOTests {
     private ProductDAO productDAO;
 
     @Test
-    public void 현재시간_조회_테스트(){
+    public void 현재시간_조회_테스트() throws Exception {
         log.info(productDAO.selectNow());
     }
 }
