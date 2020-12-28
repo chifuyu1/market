@@ -13,7 +13,6 @@ import { theme } from '../../config/config';
 
 export default memo(function BuyBank() {
   const navigation = useNavigation();
-  // const [refundName, setRefundName] = useState('');
   const [refundName, onChangeName] = useTextInput('');
   const [bankKind, setBankKind] = useState('');
   const [refundBankNumber, setRefundBankNumber] = useState('');

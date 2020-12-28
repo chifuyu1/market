@@ -2,6 +2,7 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-community/google-signin';
+import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
@@ -18,15 +19,29 @@ import {
   Button,
   Appearance,
   BackHandler,
+  TouchableNativeFeedback,
 } from 'react-native';
 import BuyInput from '../components/buy/BuyInput';
+import Cart from '../components/cart/Cart';
+import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 
 function Temp() {
-  const data = `무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇무엇`;
+  const Stack = createNativeStackNavigator();
+  const a = [1, 2, 3, 4];
   return (
-    <Text numberOfLines={1} ellipsizeMode='tail'>
-      {data}
-    </Text>
+    <View style={[styles.container, { flexDirection: 'row' }]}>
+      {a.map((value, index) => (
+        <TouchableNativeFeedback
+          key={index}
+          style={{ marginRight: 5 }}
+          onPress={() => {}}
+        >
+          <View style={{ padding: 10, borderWidth: 1 }}>
+            <Text>{value}</Text>
+          </View>
+        </TouchableNativeFeedback>
+      ))}
+    </View>
   );
 }
 

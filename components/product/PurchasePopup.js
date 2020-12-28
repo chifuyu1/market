@@ -1,14 +1,9 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useState, memo } from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableNativeFeedback,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { theme } from '../../config/config';
+import BottomTwoButton from '../BottomTwoButton';
 import Popup from '../Popup';
 import PurchaseOptions from './PurchaseOptions';
 import Quantity from './Quantity';
@@ -144,40 +139,21 @@ export default memo(function PurchasePopup({ setVisible, options }) {
                 <Text style={purcharseStyle.amountPrice}>15,800원</Text>
               </View>
             </View>
-            <View style={purcharseStyle.bottomBtn}>
-              <TouchableNativeFeedback
-                onPress={() => {
-                  setVisible(false);
-                  navigation.navigate('OrderList');
-                }}
-              >
-                <View
-                  style={[
-                    purcharseStyle.pressContainer,
-                    purcharseStyle.cart,
-                    { marginRight: 5 },
-                  ]}
-                >
-                  <Text style={purcharseStyle.cartText}>장바구니</Text>
-                </View>
-              </TouchableNativeFeedback>
-              <TouchableNativeFeedback
-                onPress={() => {
-                  setVisible(false);
-                  navigation.navigate('BuyForm');
-                }}
-              >
-                <View
-                  style={[
-                    purcharseStyle.pressContainer,
-                    purcharseStyle.buy,
-                    { marginLeft: 5 },
-                  ]}
-                >
-                  <Text style={purcharseStyle.buyText}>구매하기</Text>
-                </View>
-              </TouchableNativeFeedback>
-            </View>
+            <BottomTwoButton
+              actionLeft={() => {
+                setVisible(false);
+                navigation.navigate('마이페이지', {
+                  screen: 'OrderList',
+                  options: { headerHideBackButton: true },
+                });
+              }}
+              contentLeft={`장바구니`}
+              actionRight={() => {
+                setVisible(false);
+                navigation.navigate('BuyForm');
+              }}
+              contentRight={`구매하기`}
+            />
           </View>
         </>
       ) : (

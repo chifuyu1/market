@@ -36,6 +36,7 @@ function BuyForm() {
     refundName: '',
     bankKind: '',
   });
+
   const ref = useRef(null);
   const navigation = useNavigation();
   const route = useRoute();

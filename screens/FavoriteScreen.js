@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,8 @@ import {
   Dimensions,
   Button,
   TouchableNativeFeedback,
+  BackHandler,
+  ToastAndroid,
 } from 'react-native';
 import DrawerLayout from '../components/DrawerLayout';
 import Header from '../components/Header';
@@ -88,6 +90,24 @@ function FavoriteScreens({ openDrawer }) {
 }
 
 function FavoriteScreen() {
+  const message = `앱을 종료하려면 한 번 더 누르세요.`;
+  let currentCount = false;
+  const backAction = () => {
+    if (currentCount === false) {
+      ToastAndroid.show(message, ToastAndroid.SHORT);
+      currentCount = true;
+      setTimeout(() => {
+        currentCount = false;
+      }, 2000);
+    } else {
+      BackHandler.exitApp();
+    }
+    return true;
+  };
+  useEffect(() => {
+    const back = BackHandler.addEventListener('hardwareBackPress', backAction);
+    return () => back.remove();
+  }, []);
   return (
     <>
       <DrawerLayout Component={FavoriteScreens} />

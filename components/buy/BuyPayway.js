@@ -74,40 +74,37 @@ export default memo(function BuyPayway({
             );
           }
           return (
-            <>
-              <TouchableNativeFeedback
-                key={index}
-                onPress={() => {
-                  setOrderPayname(element.name);
-                  setEnd(true);
-                }}
+            <TouchableNativeFeedback
+              onPress={() => {
+                setOrderPayname(element.name);
+                setEnd(true);
+              }}
+              key={index}
+            >
+              <View
+                style={
+                  orderPayname === element.name
+                    ? [
+                        formStyles.paywayBtn,
+                        {
+                          backgroundColor: theme.highlight_pressable.background,
+                          marginRight: 5,
+                        },
+                      ]
+                    : [formStyles.paywayBtn, { marginRight: 5 }]
+                }
               >
-                <View
+                <Text
                   style={
                     orderPayname === element.name
-                      ? [
-                          formStyles.paywayBtn,
-                          {
-                            backgroundColor:
-                              theme.highlight_pressable.background,
-                          },
-                        ]
-                      : [formStyles.paywayBtn]
+                      ? [{ color: theme.highlight_pressable.text }]
+                      : [{ color: theme.container.text }]
                   }
                 >
-                  <Text
-                    style={
-                      orderPayname === element.name
-                        ? [{ color: theme.highlight_pressable.text }]
-                        : [{ color: theme.container.text }]
-                    }
-                  >
-                    {element.name}
-                  </Text>
-                </View>
-              </TouchableNativeFeedback>
-              <View style={{ marginRight: 5 }} />
-            </>
+                  {element.name}
+                </Text>
+              </View>
+            </TouchableNativeFeedback>
           );
         })}
       </View>

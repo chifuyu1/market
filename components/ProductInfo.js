@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,13 +8,13 @@ import {
   ScrollView,
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
-  FlatList,
+  BackHandler,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import { priceComma } from '../util/price';
 import Header from './Header';
-import Popup, { CouponPopup } from './Popup';
+import Popup from './Popup';
 import PurchasePopup from './product/PurchasePopup';
 import DrawerLayout from './DrawerLayout';
 import BitSwiper from 'react-native-bit-swiper';
@@ -30,11 +30,15 @@ function ProductInfo1({ route, openDrawer }) {
   }, [navigation]);
 
   useEffect(() => {
-    navigation.setOptions({ tabBarVisible: false });
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const back = BackHandler.addEventListener('hardwareBackPress', backAction);
+    return () => back.remove();
   }, [navigation]);
 
   const { info } = routes.params;
-  // const params = navigation.
   const { uri, discount, price, storeName, title, quantity } = info;
   const data = [
     'https://images.unsplash.com/photo-1608806947629-da2ae50be954?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
@@ -131,21 +135,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 40,
   },
-  // coupon: {
-  //   paddingVertical: 10,
-  //   borderRadius: 4,
-  //   paddingHorizontal: 10,
-  //   borderStyle: 'solid',
-  //   borderColor: '#2196F3',
-  //   borderWidth: 2,
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between',
-  //   alignItems: 'center',
-  // },
   productCodeText: {
     fontSize: 12,
     color: theme.product.couponText,
-    // 색으로 바꿀 것
   },
   paymentBar: {
     flexDirection: 'row',

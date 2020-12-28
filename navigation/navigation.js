@@ -12,7 +12,7 @@ import ProductInfo from '../components/ProductInfo';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Coupon from '../components/Coupon';
-import Cart from '../components/Cart';
+import Cart from '../components/cart/Cart';
 import BuyForm from '../components/buy/BuyForm';
 import { OpenSource, ServiceTerm, Notice } from '../components/InfoDetail';
 import BuyInput from '../components/buy/BuyInput';
@@ -87,7 +87,7 @@ function MyPageStack() {
     <Stack.Navigator
       screenOptions={{
         headerTopInsetEnabled: false,
-        stackAnimation: 'slide_from_right',
+        // stackAnimation: 'slide_from_right',
       }}
     >
       <Stack.Screen

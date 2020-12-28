@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableNativeFeedback,
+  BackHandler,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
@@ -13,9 +14,17 @@ import BottomOneButton from '../BottomOneButton';
 import CartItem from './CartItem';
 import CartResult from './CartResult';
 
-export default React.memo(function Cart() {
+export default function Cart() {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      navigation.goBack();
+      return true;
+    });
+    return () => BackHandler.removeEventListener('hardwareBackPress');
+  }, [navigation]);
 
   const arr = [
     {
@@ -67,7 +76,7 @@ export default React.memo(function Cart() {
       />
     </>
   );
-});
+}
 
 const styles = StyleSheet.create({
   checkBox: {
