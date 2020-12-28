@@ -2,6 +2,9 @@ package com.market.app.service.dto;
 
 import lombok.*;
 
+/**
+ * 상품 정보 반환용 dto
+ */
 @Getter
 @Setter
 @ToString

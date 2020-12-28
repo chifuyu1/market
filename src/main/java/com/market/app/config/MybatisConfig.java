@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+/**
+ * 마이바티스 설정
+ */
 @RequiredArgsConstructor
 @Configuration
 public class MybatisConfig {
