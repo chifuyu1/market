@@ -60,15 +60,25 @@ function BuyForm() {
         bankKind: route.params.bankKind,
       });
     }
-  }, [route]);
+  }, [
+    route.params.address,
+    route.params.bankKind,
+    route.params.detailAddress,
+    route.params.name,
+    route.params.phone,
+    route.params.postNumber,
+    route.params.refundBankNumber,
+    route.params.refundName,
+  ]);
 
   const { name, phoneNumber, address, detailAddress } = destination;
   const { refundName, refundBankNumber, bankKind } = refund;
   // temp variable
   const amount = 3;
   const payMoney = 29800;
-  const uri = `https://image.chosun.com/sitedata/image/201904/29/2019042902668_0.jpg`;
-  const productName = `[당일출고] 스타일신발 blablablablablablablablablablabla`;
+  const uri =
+    'https://image.chosun.com/sitedata/image/201904/29/2019042902668_0.jpg';
+  const productName = '[당일출고] 스타일신발 blablablablablablablablablablabla';
   const price = 29800;
 
   return (
@@ -116,7 +126,7 @@ function BuyForm() {
           setEnd={setEnd}
         />
       </ScrollView>
-      <BottomOneButton content={`29,800원 결제하기`} action={() => {}} />
+      <BottomOneButton content={'29,800원 결제하기'} action={() => {}} />
     </>
   );
 }

@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['@react-native-community', 'plugin:react/recommended'],
+  extends: ['@react-native-community'],
 
   rules: {
     'prettier/prettier': [

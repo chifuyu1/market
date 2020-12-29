@@ -20,11 +20,13 @@ export default function Quantity({ setQuantityOpen, setChoiceQuantity }) {
       setChoiceQuantity(item);
       setQuantityOpen(false);
     },
-    [dispatch],
+    [dispatch, setChoiceQuantity, setQuantityOpen],
   );
 
   let quantityList = [];
-  for (let i = 1; i < 100; i++) quantityList.push(i);
+  for (let i = 1; i < 100; i++) {
+    quantityList.push(i);
+  }
   return (
     <>
       <View style={quantityStyle.container}>
@@ -49,7 +51,7 @@ export default function Quantity({ setQuantityOpen, setChoiceQuantity }) {
           ))}
         </ScrollView>
       </View>
-      <BottomOneButton action={() => setQuantityOpen(false)} content={`닫기`} />
+      <BottomOneButton action={() => setQuantityOpen(false)} content={'닫기'} />
     </>
   );
 }
@@ -68,8 +70,8 @@ const quantityStyle = StyleSheet.create({
     height: 60,
     borderRadius: 5,
     borderWidth: 2,
-    borderStyle: `solid`,
-    borderColor: `rgba(0, 0, 0, 0.5)`,
+    borderStyle: 'solid',
+    borderColor: 'rgba(0, 0, 0, 0.5)',
   },
   closeText: {},
 });

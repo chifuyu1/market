@@ -12,8 +12,8 @@ export default memo(function PurchaseOptions({
 }) {
   const [choice, setChoice] = useState(() => {
     const named = {
-      1: `색상 선택하기`,
-      2: `사이즈 선택하기`,
+      1: '색상 선택하기',
+      2: '사이즈 선택하기',
     };
     return named[name];
   });
@@ -33,7 +33,7 @@ export default memo(function PurchaseOptions({
       setChoice(text);
       setOpen(false);
     },
-    [dispatch],
+    [dispatch, Options, name, setOptions],
   );
 
   const optionStyle = StyleSheet.create({
@@ -41,8 +41,8 @@ export default memo(function PurchaseOptions({
       marginVertical: 10,
       borderRadius: 5,
       borderWidth: 2,
-      borderStyle: `solid`,
-      borderColor: `rgba(0, 0, 0, 0.5)`,
+      borderStyle: 'solid',
+      borderColor: 'rgba(0, 0, 0, 0.5)',
     },
     optionBox: {
       flexDirection: 'row',
@@ -54,8 +54,8 @@ export default memo(function PurchaseOptions({
       justifyContent: 'center',
       padding: 10,
       borderTopWidth: 2,
-      borderStyle: `solid`,
-      borderColor: `rgba(0, 0, 0, 0.5)`,
+      borderStyle: 'solid',
+      borderColor: 'rgba(0, 0, 0, 0.5)',
     },
   });
 

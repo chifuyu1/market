@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   Text,
@@ -48,7 +48,7 @@ function Login() {
 
   // <Button onPress={moveCoupon} title='쿠폰 보기' />
   //<Button onPress={moveCart} title='장바구니' />
-  const subMenuItem = [`쿠폰 보기`, `장바구니`];
+  const subMenuItem = ['쿠폰 보기', '장바구니'];
   return (
     <>
       {!account ? (
@@ -67,7 +67,7 @@ function Login() {
               >
                 <Image
                   style={styles.socialImage}
-                  source={require(`../assets/google.png`)}
+                  source={require('../assets/google.png')}
                 />
               </TouchableHighlight>
               <TouchableHighlight
@@ -76,7 +76,7 @@ function Login() {
               >
                 <Image
                   style={styles.socialImage}
-                  source={require(`../assets/kakao.png`)}
+                  source={require('../assets/kakao.png')}
                 />
               </TouchableHighlight>
             </View>
@@ -108,7 +108,7 @@ function Login() {
           </TouchableNativeFeedback>
         ))}
       </View>
-      <BottomOneButton content={`스토어 관리`} action={moveManager} />
+      <BottomOneButton content={'스토어 관리'} action={moveManager} />
     </>
   );
 }
@@ -162,12 +162,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: theme.pressable.border,
-    borderStyle: `solid`,
-    justifyContent: `center`,
-    alignItems: `center`,
+    borderStyle: 'solid',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   subMenuItemText: {
-    fontWeight: `bold`,
+    fontWeight: 'bold',
     fontSize: 18,
   },
 });

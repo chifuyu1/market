@@ -35,8 +35,9 @@ const App = () => {
   useEffect(() => {
     LogBox.ignoreAllLogs();
   }, []);
-  if (Platform.OS !== 'android' || Platform.Version < 29)
+  if (Platform.OS !== 'android' || Platform.Version < 29) {
     return <PlatformError />;
+  }
   return (
     <Provider store={store}>
       <StatusBar barStyle='default' />

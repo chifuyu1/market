@@ -88,7 +88,7 @@ function Category({ Component }) {
   }, []);
   const onChangeFemale = useCallback(() => {
     setMale(false);
-  });
+  }, []);
 
   return (
     <>

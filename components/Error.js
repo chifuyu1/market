@@ -6,7 +6,7 @@ export function PlatformError() {
     setTimeout(() => {
       BackHandler.exitApp();
     }, 3000);
-  }, [BackHandler]);
+  }, []);
 
   return (
     <View style={styles.container}>

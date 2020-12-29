@@ -9,6 +9,9 @@
     "test": "jest",
     "lint": "eslint ."
   },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
   "dependencies": {
     "@react-native-community/cameraroll": "^4.0.1",
     "@react-native-community/checkbox": "^0.5.6",

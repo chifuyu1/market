@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Text, FlatList, BackHandler, ToastAndroid, Alert } from 'react-native';
+/* eslint-disable react/prop-types */
+import React, { useCallback, useEffect, useRef } from 'react';
+import { Text, FlatList, BackHandler, ToastAndroid } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Category, { CategoryHorizontal } from '../components/Category';
 import DrawerLayout from '../components/DrawerLayout';
@@ -12,33 +13,39 @@ import { getProductsRequest } from '../reducer/product';
 const numColumns = 2;
 
 const MainScreens = ({ openDrawer }) => {
+  const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product);
-  const getItems = useCallback(() => dispatch(getProductsRequest()), [
+  const getProducts = useCallback(() => dispatch(getProductsRequest()), [
     dispatch,
   ]);
 
-  const message = `앱을 종료하려면 한 번 더 누르세요.`;
-  let currentCount = false;
+  useEffect(() => {
+    if (products.length !== 0) {
+      getProducts();
+    }
+  }, [products, getProducts]);
+  let currentCount = useRef(false);
 
-  const backAction = () => {
-    if (currentCount === false) {
-      ToastAndroid.show(message, ToastAndroid.SHORT);
-      currentCount = true;
+  const backAction = useCallback(() => {
+    if (currentCount.current === false) {
+      ToastAndroid.show(
+        '앱을 종료하려면 한 번 더 누르세요.',
+        ToastAndroid.SHORT,
+      );
+      currentCount.current = true;
       setTimeout(() => {
-        currentCount = false;
+        currentCount.current = false;
       }, 2000);
     } else {
       BackHandler.exitApp();
     }
     return true;
-  };
+  }, []);
+
   useEffect(() => {
     const back = BackHandler.addEventListener('hardwareBackPress', backAction);
     return () => back.remove();
-  }, []);
-
-  // const useData = products.length === 0 ? dummy : products;
+  }, [backAction]);
   const useData = dummy;
 
   return (

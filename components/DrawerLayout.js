@@ -24,7 +24,7 @@ function DrawerLayout({ Component }) {
 
   const openDrawer = useCallback(() => {
     drawer.current.openDrawer();
-  }, [drawer.current]);
+  }, []);
 
   return (
     <DrawerLayoutAndroid

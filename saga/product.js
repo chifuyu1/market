@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {all, fork, call, put, takeLatest} from 'redux-saga/effects';
+import { all, fork, call, put, takeLatest } from 'redux-saga/effects';
 import {
   GET_PRODUCTS_REQUEST,
   GET_PRODUCTS_SUCCESS,
@@ -7,13 +7,13 @@ import {
 } from '../reducer/product';
 
 function getItemsAPI() {
-  return axios.get(``);
+  return axios.get(`/api/products`);
 }
 
 function* getItems() {
   try {
     const result = yield call(getItemsAPI);
-    yield put({type: GET_PRODUCTS_SUCCESS, data: result.data});
+    yield put({ type: GET_PRODUCTS_SUCCESS, data: result.data });
   } catch (err) {
     console.error(err);
     yield put({
