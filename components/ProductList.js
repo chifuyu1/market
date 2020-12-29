@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { theme } from '../config/config';
 import { formStyles } from './buy/buyFormStyles';
 
 function ProductList({ uri, price, amount, productName }) {

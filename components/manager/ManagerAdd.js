@@ -1,8 +1,16 @@
-import React, { useCallback, useState } from 'react';
-import { TextInput, ScrollView, Image, Dimensions } from 'react-native';
+import React, { useCallback, useRef, useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  Image,
+  Dimensions,
+} from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import useTextInput from '../../hooks/useTextInput';
-import BottomOneButton from '../BottomOneButton';
+import BottomTwoButton from '../BottomTwoButton';
+import ManagerAddPicker from './ManagerAddPicker';
 import ChoiceGender from '../ChoiceGender';
 import { theme } from '../../config/config';
 
@@ -11,8 +19,10 @@ export default function ManagerAdd() {
   const [productSize, setProductSize] = useState('FREE');
   const [productCategory, setProductCategory] = useState('상의');
   const [anyPhoto, setAnyPhoto] = useState({});
+  const [end, setEnd] = useState(false);
   const [productName, onProductName] = useTextInput('');
   const [productPrice, onProductPrice] = useTextInput('');
+  const ref = useRef(null);
 
   const onChangeMale = useCallback(() => {
     setMale(true);
@@ -29,7 +39,7 @@ export default function ManagerAdd() {
     // maxWidth:,
     // maxHeight:,
   };
-  const handler = () => {
+  const getImageHandler = () => {
     launchImageLibrary(options, (response) => {
       if (response.didCancel || response.errorCode) {
         return;
@@ -43,14 +53,12 @@ export default function ManagerAdd() {
           return;
         } else {
           setAnyPhoto(result);
-          const imageData = new FormData();
-          imageData.append('productImage', result.uri);
-          console.log(imageData);
-          console.log(result);
+          setEnd(true);
         }
       }
     });
   };
+  const uploadImageHandler = useCallback(() => {}, []);
 
   return (
     <>
@@ -58,7 +66,14 @@ export default function ManagerAdd() {
         contentContainerStyle={{
           paddingHorizontal: 10,
           backgroundColor: theme.container.background,
-          flex: 1,
+        }}
+        horizontal={false}
+        ref={ref}
+        onContentSizeChange={() => {
+          if (ref.current && end) {
+            setEnd(false);
+            ref.current.scrollToEnd({ animated: true });
+          }
         }}
       >
         <TextInput
@@ -93,17 +108,31 @@ export default function ManagerAdd() {
           productSize={productSize}
           setProductSize={setProductSize}
         />
-        <Image
-          source={{
-            uri: anyPhoto.uri
-              ? anyPhoto.uri
-              : `https://mblogthumb-phinf.pstatic.net/MjAxODA4MTVfMzYg/MDAxNTM0MzIyNzM2MTYy.z3Dtimvb-qt8nfpBvJql3rbe6GmL9sonhpwhIUTl47Qg.EOnOZkG5t4UB1Bi-fsMS83X7pDLevCR2rVaCoKtULzog.JPEG.designpress2016/1.JPG?type=w800`,
-          }}
-          style={{ width: Dimensions.get('window').width - 20, height: 300 }}
-          resizeMode={`contain`}
-        />
+        {anyPhoto.uri ? (
+          <Image
+            source={{ uri: anyPhoto.uri }}
+            style={{ width: Dimensions.get('window').width - 20, height: 300 }}
+            resizeMode={`contain`}
+          />
+        ) : (
+          <View
+            style={{
+              backgroundColor: `rgba(0, 0, 0, .5)`,
+              height: 300,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Text style={{ color: `#fff`, fontSize: 18 }}>no image</Text>
+          </View>
+        )}
       </ScrollView>
-      <BottomOneButton action={handler} content={`상품 이미지 등록`} />
+      <BottomTwoButton
+        actionLeft={getImageHandler}
+        contentLeft={`상품 이미지 등록`}
+        actionRight={uploadImageHandler}
+        contentRight={`상품 등록`}
+      />
     </>
   );
 }

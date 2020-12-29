@@ -1,36 +1,11 @@
 import React, { useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Button,
-  BackHandler,
-  ToastAndroid,
-} from 'react-native';
-import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-import Coupon from '../components/Coupon';
+import { View, BackHandler, ToastAndroid } from 'react-native';
 import DrawerLayout from '../components/DrawerLayout';
 import Header from '../components/Header';
 import Information from '../components/Information';
 import Login from '../components/Login';
-import { theme } from '../config/config';
 
 const MyPageScreens = ({ openDrawer }) => {
-  const navigation = useNavigation();
-  return (
-    <View style={{ flex: 1 }}>
-      <Header title={'마이페이지'} openDrawer={openDrawer} />
-      <View style={styles.container}>
-        <Login />
-        <Information />
-      </View>
-    </View>
-  );
-};
-
-function MyPage() {
   const message = `앱을 종료하려면 한 번 더 누르세요.`;
   let currentCount = false;
   const backAction = () => {
@@ -50,16 +25,20 @@ function MyPage() {
     return () => back.remove();
   }, []);
   return (
+    <View style={{ flex: 1 }}>
+      <Header title={'마이페이지'} openDrawer={openDrawer} />
+      <View style={{ paddingHorizontal: 10 }}>
+        <Login />
+        <Information />
+      </View>
+    </View>
+  );
+};
+
+export default React.memo(function MyPage() {
+  return (
     <>
       <DrawerLayout Component={MyPageScreens} />
     </>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 10,
-  },
 });
-
-export default React.memo(MyPage);
