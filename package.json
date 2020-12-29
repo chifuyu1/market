@@ -10,9 +10,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/cameraroll": "^4.0.1",
     "@react-native-community/checkbox": "^0.5.6",
     "@react-native-community/google-signin": "^5.0.0",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-picker/picker": "^1.9.8",
     "@react-native-seoul/kakao-login": "^2.10.2",
     "@react-navigation/material-bottom-tabs": "^5.3.10",
     "@react-navigation/material-top-tabs": "^5.3.10",
@@ -25,6 +27,7 @@
     "react-native": "^0.63.4",
     "react-native-bit-swiper": "^1.1.8",
     "react-native-gesture-handler": "^1.9.0",
+    "react-native-image-picker": "^3.1.2",
     "react-native-paper": "^4.5.0",
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",
