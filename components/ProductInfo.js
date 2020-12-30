@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,9 @@ import {
   ScrollView,
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
+  BackHandler,
 } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import Header from './Header';
 import Popup from './Popup';
@@ -21,9 +22,20 @@ import { theme } from '../config/config';
 function ProductInfo1({ openDrawer }) {
   const [buy, setBuy] = useState(false);
   const routes = useRoute();
+  const navigation = useNavigation();
+
+  const backAction = useCallback(() => {
+    navigation.goBack();
+    return true;
+  }, [navigation]);
+
+  useEffect(() => {
+    const back = BackHandler.addEventListener('hardwareBackPress', backAction);
+    return () => back.remove();
+  }, [backAction]);
+
   const { info } = routes.params;
   const { uri, discount, price, title } = info;
-
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false}>

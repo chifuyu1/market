@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   Text,
@@ -13,11 +13,13 @@ import { theme } from '../config/config';
 function Product(info) {
   const { uri, discount, price, storeName, title } = info;
   const navigation = useNavigation();
+  const moveProductInfo = useCallback(
+    () => navigation.navigate('ProductInfo', { info }),
+    [navigation, info],
+  );
   // ...[len ? { flex: 1 } : {}]
   return (
-    <TouchableNativeFeedback
-      onPress={() => navigation.navigate('ProductInfo', { info })}
-    >
+    <TouchableNativeFeedback onPress={moveProductInfo}>
       <View style={[styles.container]}>
         {uri ? (
           <Image
