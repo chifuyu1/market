@@ -28,34 +28,7 @@ import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 function Temp() {
   const Stack = createNativeStackNavigator();
   const a = [1, 2];
-  return (
-    <View
-      style={[
-        styles.container,
-        { flexDirection: 'row', justifyContent: 'space-evenly' },
-      ]}
-    >
-      {a.map((value, index) => (
-        <TouchableNativeFeedback
-          key={index}
-          style={{ marginRight: 5 }}
-          onPress={() => {}}
-        >
-          <View
-            style={{
-              padding: 30,
-              borderWidth: 1,
-              borderRadius: 10,
-              flex: 1,
-              marginHorizontal: 10,
-            }}
-          >
-            <Text>{value}</Text>
-          </View>
-        </TouchableNativeFeedback>
-      ))}
-    </View>
-  );
+  return <></>;
 }
 
 const styles = StyleSheet.create({

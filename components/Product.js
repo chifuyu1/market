@@ -1,75 +1,67 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Image,
-  Dimensions,
   TouchableNativeFeedback,
+  Dimensions,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { theme } from '../config/config';
-import { priceComma } from '../util/price';
-
-const WIDTH = Dimensions.get('window').width;
 
 function Product(info) {
-  const { uri, discount, price, storeName, title, quantity, len } = info;
+  const { uri, discount, price, storeName, title } = info;
   const navigation = useNavigation();
-
+  // ...[len ? { flex: 1 } : {}]
   return (
     <TouchableNativeFeedback
       onPress={() => navigation.navigate('ProductInfo', { info })}
     >
-      <View style={[styles.container, ...[len ? { flex: 1 } : {}]]}>
+      <View style={[styles.container]}>
         {uri ? (
           <Image
             source={{
               uri,
             }}
             style={styles.image}
-            resizeMode={'contain'}
+            resizeMode={'cover'}
           />
         ) : (
-          <View
-            style={{
-              backgroundColor: theme.container.non_active,
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 100,
-            }}
-          >
+          <View style={styles.noData}>
             <Text>No Data</Text>
           </View>
         )}
-        <View style={styles.priceInfo}>
-          <Text style={styles.discount}>{discount}</Text>
-          <Text style={styles.price}>{priceComma(price)}</Text>
+        <View style={{ paddingHorizontal: 5 }}>
+          <View style={styles.priceInfo}>
+            <Text style={styles.discount}>{discount}</Text>
+            <Text style={styles.price}>{price}</Text>
+          </View>
+          <Text style={styles.storeName}>{storeName}</Text>
+          <Text
+            style={styles.productTitle}
+            numberOfLines={1}
+            ellipsizeMode={'tail'}
+          >
+            {title}
+          </Text>
         </View>
-        <Text style={styles.storeName}>{storeName}</Text>
-        <Text
-          style={styles.productTitle}
-          numberOfLines={1}
-          ellipsizeMode={'tail'}
-        >
-          {title}
-        </Text>
-        <Text style={styles.productQuantity}>{quantity}</Text>
       </View>
     </TouchableNativeFeedback>
   );
 }
 
+const width = Dimensions.get('screen').width / 2 - 10;
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.navigationBar.bottomTab.containerBackground,
-    marginHorizontal: 2,
-    paddingHorizontal: 5,
-    marginVertical: 10,
+    // marginHorizontal: 5,
+    marginVertical: 5,
+    paddingBottom: 10,
   },
   image: {
-    // width: WIDTH / 2,
-    height: 175,
+    width: width,
+    height: width,
+    borderRadius: 10,
   },
   priceInfo: {
     flexDirection: 'row',
@@ -88,6 +80,12 @@ const styles = StyleSheet.create({
   productTitle: {
     fontSize: 12,
     lineHeight: 24,
+  },
+  noData: {
+    backgroundColor: theme.container.non_active,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 100,
   },
 });
 

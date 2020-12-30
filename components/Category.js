@@ -6,13 +6,10 @@ import {
   ScrollView,
   FlatList,
   TouchableNativeFeedback,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import { theme } from '../config/config';
 import { categories, womans } from '../dummy/dummy';
-import BottomTwoButton from './BottomTwoButton';
-import { formStyles } from './buy/buyFormStyles';
 import ChoiceGender from './ChoiceGender';
 
 export const CategoryDrawer = ({ male }) => {
@@ -74,7 +71,7 @@ export const CategoryDrawer = ({ male }) => {
 export function CategoryHorizontal({ male }) {
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-      <View style={styles.content}>
+      <View style={[styles.content]}>
         <CategoryItems male={male} />
       </View>
     </ScrollView>
@@ -139,7 +136,6 @@ function CategoryItem({ name }) {
 const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
-    flex: 1,
     paddingVertical: 10,
     marginBottom: 10,
   },

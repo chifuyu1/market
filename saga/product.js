@@ -7,7 +7,7 @@ import {
 } from '../reducer/product';
 
 function getItemsAPI() {
-  return axios.get(`/api/products`);
+  return axios.get('/api/products');
 }
 
 function* getItems() {

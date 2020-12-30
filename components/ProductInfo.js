@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,9 @@ import {
   ScrollView,
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
-  BackHandler,
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import IconIo from 'react-native-vector-icons/Ionicons';
-import { priceComma } from '../util/price';
 import Header from './Header';
 import Popup from './Popup';
 import PurchasePopup from './product/PurchasePopup';
@@ -20,67 +18,41 @@ import DrawerLayout from './DrawerLayout';
 import BitSwiper from 'react-native-bit-swiper';
 import { theme } from '../config/config';
 
-function ProductInfo1({ route, openDrawer }) {
+function ProductInfo1({ openDrawer }) {
   const [buy, setBuy] = useState(false);
-  const navigation = useNavigation();
   const routes = useRoute();
-
-  useLayoutEffect(() => {
-    navigation.setOptions({ tabBarVisible: false });
-  }, [navigation]);
-
-  useEffect(() => {
-    const backAction = () => {
-      navigation.goBack();
-      return true;
-    };
-    const back = BackHandler.addEventListener('hardwareBackPress', backAction);
-    return () => back.remove();
-  }, [navigation]);
-
   const { info } = routes.params;
-  const { uri, discount, price, storeName, title, quantity } = info;
-  const data = [
-    'https://images.unsplash.com/photo-1608806947629-da2ae50be954?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    'https://images.unsplash.com/photo-1608814697059-f99110964423?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=622&q=80',
-    'https://images.unsplash.com/photo-1608822101969-3e362a03fd5e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-  ];
+  const { uri, discount, price, title } = info;
+
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <Header openDrawer={openDrawer} />
-          {/* 헤더가 사진 위로 겹쳐서 보여야함 */}
           <BitSwiper
-            items={data}
+            items={[uri, uri, uri]}
             onItemRender={(item, index) => (
-              <View key={index} style={{ height: 150 }}>
+              <View key={index} style={styles.imageContainer}>
                 <Image
                   source={{ uri: item }}
-                  style={{ width: '100%', height: '100%' }}
+                  style={styles.imageSwipe}
+                  resizeMode='contain'
                 />
               </View>
             )}
-            paginateStyle={{
-              marginTop: -20,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            paginateActiveDotStyle={{
-              backgroundColor: 'rgba(255, 0, 0, .8)',
-              width: 10,
-              height: 10,
-              borderRadius: 5,
-              marginHorizontal: 3,
-            }}
+            paginateStyle={styles.dotContainer}
+            paginateActiveDotStyle={styles.ActivityDot}
           />
         </View>
         <View style={styles.productInfo}>
-          {/* <Text>{discount}</Text> */}
           <View>
             <Text>{title}</Text>
-            <Text style={styles.priceText}>{priceComma(price)}원</Text>
+            <View style={styles.priceContainer}>
+              <Text style={[styles.priceText, styles.discountText]}>
+                {discount}
+              </Text>
+              <Text style={styles.priceText}>{price}원</Text>
+            </View>
           </View>
           <Text style={styles.productCodeText}>상품코드 3080-347202</Text>
         </View>
@@ -108,17 +80,34 @@ function ProductInfo1({ route, openDrawer }) {
 }
 
 const ProductInfo = () => {
-  return (
-    <>
-      <DrawerLayout Component={ProductInfo1} />
-    </>
-  );
+  return <DrawerLayout Component={ProductInfo1} />;
 };
 
 const styles = StyleSheet.create({
   image: {
     width: Dimensions.get('window').width,
     height: 150,
+  },
+  imageContainer: {
+    width: Dimensions.get('screen').width + 30,
+    height: Dimensions.get('screen').width + 30,
+    marginHorizontal: -11,
+    marginTop: -10,
+  },
+  imageSwipe: { width: '100%', height: '100%', padding: 0, margin: 0 },
+  dotContainer: {
+    marginTop: -30,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 0,
+  },
+  ActivityDot: {
+    backgroundColor: 'rgba(255, 0, 0, .8)',
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginHorizontal: 3,
   },
   productInfo: {
     flexDirection: 'column',
@@ -129,11 +118,18 @@ const styles = StyleSheet.create({
     backgroundColor: theme.container.background,
     elevation: 3,
   },
-  productPrice: {},
+  priceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   priceText: {
     fontWeight: 'bold',
     fontSize: 20,
     lineHeight: 40,
+  },
+  discountText: {
+    color: theme.highlight_pressable.background,
+    marginRight: 10,
   },
   productCodeText: {
     fontSize: 12,
