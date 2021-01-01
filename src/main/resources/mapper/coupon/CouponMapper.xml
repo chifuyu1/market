@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.market.app.dao.CouponDAO">
+    <select id="findMyCouponByMemberId" parameterType="Integer" resultType="com.market.app.service.dto.CouponResponseDto">
+        SELECT pt.title AS couponName,
+               c.title AS saleType,
+               c.sale AS saleRate,
+               mc.use_yn AS isUse
+        FROM MEMBER m
+             INNER JOIN
+             MY_COUPON mc
+             ON m.member_id = mc.member_id
+             INNER JOIN
+             COUPON c
+             ON c.coupon_id = mc.coupon_id
+             INNER JOIN
+             PRODUCT_TYPE pt
+             ON pt.product_type_id  = c.product_type_id
+        WHERE m.member_id  = #{memberId}
+    </select>
+</mapper>
