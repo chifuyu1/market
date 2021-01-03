@@ -1,8 +1,8 @@
 import produce from 'immer';
 
 const cart = {
-  cart: [1, 2],
-  selectedList: [2],
+  cart: [],
+  selectedList: [],
   getCartLoading: false,
   getCartDone: false,
   getCartError: null,
