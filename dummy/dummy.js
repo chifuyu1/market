@@ -62,21 +62,21 @@ export const dummy = [
 ];
 
 export const categories = [
-  { event: '이벤트' },
-  { 'hand-right': '핸드메이드' },
-  { outer: '아우터' },
-  { shirt: '상의' },
-  { lower: '하의' },
-  { shoes: '신발' },
-  { underwear: '속옷' },
-  { accessories: '액세서리' },
-  { training: '트레이닝' },
+  { name: '이벤트', iconName: 'event' },
+  { name: '핸드메이드', iconName: 'handmade' },
+  { name: '아우터', iconName: 'outer' },
+  { name: '상의', iconName: 'shirt' },
+  { name: '하의', iconName: 'lower' },
+  { name: '신발', iconName: 'shoes' },
+  { name: '속옷', iconName: 'underwear' },
+  { name: '액세서리', iconName: 'accessories' },
+  { name: '트레이닝', iconName: 'training' },
 ];
 
 export const womans = [
-  { onepiece: '원피스' },
-  { skirt: '치마' },
-  { jewelry: '주얼리' },
+  { name: '원피스', iconName: 'onepiece' },
+  { name: '치마', iconName: 'skirt' },
+  { name: '주얼리', iconName: 'jewelry' },
 ];
 
 export const favoritesItem = [

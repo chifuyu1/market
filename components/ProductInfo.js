@@ -7,7 +7,6 @@ import {
   Dimensions,
   ScrollView,
   TouchableNativeFeedback,
-  TouchableWithoutFeedback,
   BackHandler,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -18,11 +17,33 @@ import PurchasePopup from './product/PurchasePopup';
 import DrawerLayout from './DrawerLayout';
 import BitSwiper from 'react-native-bit-swiper';
 import { theme } from '../config/config';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addFavoritesRequest,
+  deleteFavoritesRequest,
+} from '../reducer/favorites';
 
 function ProductInfo1({ openDrawer }) {
   const [buy, setBuy] = useState(false);
   const routes = useRoute();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const favorite = useSelector((state) => state.favorites.favorites);
+
+  const onAddFavorite = useCallback(
+    () => dispatch(addFavoritesRequest(routes.params.id)),
+    [dispatch, routes],
+  );
+
+  const onDeleteFavorite = useCallback(
+    () => dispatch(deleteFavoritesRequest(routes.params.id)),
+    [dispatch, routes],
+  );
+
+  const onFavorite = useCallback(() => {
+    const isFavorite = favorite.find((element) => element.id === title);
+    return isFavorite ? onDeleteFavorite() : onAddFavorite();
+  }, [favorite, onAddFavorite, onDeleteFavorite, title]);
 
   const backAction = useCallback(() => {
     navigation.goBack();
@@ -70,16 +91,22 @@ function ProductInfo1({ openDrawer }) {
         </View>
       </ScrollView>
       <View style={styles.paymentBar}>
-        <TouchableWithoutFeedback onPress={() => {}}>
+        <TouchableNativeFeedback onPress={onFavorite}>
           <View style={styles.like}>
-            <IconIo name='heart-outline' size={20} color='#ff0000' />
-            <Text style={styles.likeText}>1.7만</Text>
+            {favorite.find((element) => element.id === element.title) ? (
+              <IconIo name='heart' size={20} color='#ff0000' />
+            ) : (
+              <IconIo name='heart-outline' size={20} color='#ff0000' />
+            )}
+            <Text style={styles.likeText}>찜</Text>
           </View>
-        </TouchableWithoutFeedback>
+        </TouchableNativeFeedback>
         <Popup
           visible={buy}
           setVisible={setBuy}
-          Component={() => <PurchasePopup setVisible={setBuy} />}
+          Component={() => (
+            <PurchasePopup setVisible={setBuy} productId={routes.params.id} />
+          )}
         />
         <TouchableNativeFeedback onPress={() => setBuy(true)}>
           <View style={styles.payment}>
@@ -96,10 +123,6 @@ const ProductInfo = () => {
 };
 
 const styles = StyleSheet.create({
-  image: {
-    width: Dimensions.get('window').width,
-    height: 150,
-  },
   imageContainer: {
     width: Dimensions.get('screen').width + 30,
     height: Dimensions.get('screen').width + 30,

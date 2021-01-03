@@ -8,11 +8,15 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 import IconIo from 'react-native-vector-icons/Ionicons';
+import { useDispatch } from 'react-redux';
 import { theme } from '../config/config';
 import { categories, womans } from '../dummy/dummy';
+import { getProductsRequest } from '../reducer/product';
 import ChoiceGender from './ChoiceGender';
 
 export const CategoryDrawer = ({ male }) => {
+  const dispatch = useDispatch();
+
   const draw = StyleSheet.create({
     container: {
       flex: 1,
@@ -38,10 +42,14 @@ export const CategoryDrawer = ({ male }) => {
           <FlatList
             data={categories}
             renderItem={({ item }) => (
-              <TouchableNativeFeedback key={Object.keys(item)}>
+              <TouchableNativeFeedback
+                onPress={() =>
+                  dispatch(getProductsRequest(male, item.iconName))
+                }
+              >
                 <View style={draw.buttonContainer}>
                   <IconIo name={'heart-outline'} size={20} color={'black'} />
-                  <Text>{Object.values(item)}</Text>
+                  <Text>{item.name}</Text>
                 </View>
               </TouchableNativeFeedback>
             )}
@@ -52,10 +60,14 @@ export const CategoryDrawer = ({ male }) => {
           <FlatList
             data={categories.concat(womans)}
             renderItem={({ item }) => (
-              <TouchableNativeFeedback key={Object.keys(item)}>
+              <TouchableNativeFeedback
+                onPress={() =>
+                  dispatch(getProductsRequest(male, item.iconName))
+                }
+              >
                 <View style={draw.buttonContainer}>
                   <IconIo name={'heart-outline'} size={20} color={'black'} />
-                  <Text>{Object.values(item)}</Text>
+                  <Text>{item.name}</Text>
                 </View>
               </TouchableNativeFeedback>
             )}
@@ -80,12 +92,17 @@ export function CategoryHorizontal({ male }) {
 
 function Category({ Component }) {
   const [male, setMale] = useState(true);
+  const dispatch = useDispatch();
+
   const onChangeMale = useCallback(() => {
     setMale(true);
-  }, []);
+    dispatch(getProductsRequest());
+  }, [setMale, dispatch]);
+
   const onChangeFemale = useCallback(() => {
     setMale(false);
-  }, []);
+    dispatch(getProductsRequest(false));
+  }, [setMale, dispatch]);
 
   return (
     <>
@@ -105,28 +122,35 @@ function CategoryItems({ male }) {
       {male
         ? categories.map((element) => (
             <CategoryItem
-              key={Object.keys(element)}
-              name={Object.values(element)}
+              key={element.iconName}
+              iconName={'shirt'}
+              name={element.name}
+              male={male}
             />
           ))
         : categories
             .concat(womans)
             .map((element) => (
               <CategoryItem
-                key={Object.keys(element)}
-                icon={Object.keys(element)}
-                name={Object.values(element)}
+                key={element.iconName}
+                iconName={'shirt'}
+                name={element.name}
+                male={male}
               />
             ))}
     </>
   );
 }
 
-function CategoryItem({ name }) {
+function CategoryItem({ name, iconName, male }) {
+  const dispatch = useDispatch();
+
   return (
-    <TouchableNativeFeedback onPress={() => {}}>
+    <TouchableNativeFeedback
+      onPress={() => dispatch(getProductsRequest(male, iconName))}
+    >
       <View style={styles.Item}>
-        <IconIo name='shirt' size={30} color='black' />
+        <IconIo name={iconName} size={30} color='black' />
         <Text style={{ textAlign: 'center' }}>{name}</Text>
       </View>
     </TouchableNativeFeedback>

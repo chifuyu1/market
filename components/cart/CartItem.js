@@ -10,7 +10,6 @@ import CheckBox from '@react-native-community/checkbox';
 import Popup from '../Popup';
 import { theme } from '../../config/config';
 import PurchasePopup from '../product/PurchasePopup';
-import { priceComma } from '../../util/price';
 import Quantity from '../product/Quantity';
 import { ProductListSecond } from '../ProductList';
 
@@ -18,6 +17,7 @@ export default React.memo(function CartItem({ item }) {
   const [checkBox, setCheckBox] = useState(false);
   const [option, setOption] = useState(false);
   const [quantity, setQuantity] = useState(false);
+
   return (
     <View style={styles.product}>
       <View style={{ marginVertical: 10, justifyContent: 'center' }}>
@@ -35,7 +35,7 @@ export default React.memo(function CartItem({ item }) {
         </View>
         <View style={styles.productInfo}>
           <ProductListSecond
-            options={`소라/FREE`}
+            options={'소라/FREE'}
             uri={item.uri}
             title={item.title}
             price={item.price}

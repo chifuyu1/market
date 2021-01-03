@@ -60,16 +60,7 @@ function BuyForm() {
         bankKind: route.params.bankKind,
       });
     }
-  }, [
-    route.params.address,
-    route.params.bankKind,
-    route.params.detailAddress,
-    route.params.name,
-    route.params.phone,
-    route.params.postNumber,
-    route.params.refundBankNumber,
-    route.params.refundName,
-  ]);
+  }, [route]);
 
   const { name, phoneNumber, address, detailAddress } = destination;
   const { refundName, refundBankNumber, bankKind } = refund;

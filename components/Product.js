@@ -40,13 +40,14 @@ function Product(info) {
             <Text style={styles.price}>{price}</Text>
           </View>
           <Text style={styles.storeName}>{storeName}</Text>
-          <Text
-            style={styles.productTitle}
-            numberOfLines={1}
-            ellipsizeMode={'tail'}
-          >
-            {title}
-          </Text>
+          <View style={{ flexWrap: 'wrap', alignItems: 'flex-start' }}>
+            <Text style={styles.productTitle}>
+              {title.length >= 20
+                ? title.substring(0, 20).concat('...')
+                : title}
+              {/* {title} */}
+            </Text>
+          </View>
         </View>
       </View>
     </TouchableNativeFeedback>

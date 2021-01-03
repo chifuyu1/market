@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableNativeFeedback,
   BackHandler,
+  ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
@@ -13,37 +14,55 @@ import { theme } from '../../config/config';
 import BottomOneButton from '../BottomOneButton';
 import CartItem from './CartItem';
 import CartResult from './CartResult';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCartRequest } from '../../reducer/cart';
+import { commonStyles } from '../style/styles';
+import Loading from '../Loading';
 
 export default function Cart() {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const navigation = useNavigation();
+  const cartState = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', () => {
       navigation.goBack();
       return true;
     });
-    return () => BackHandler.removeEventListener('hardwareBackPress');
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        navigation.goBack();
+        return true;
+      });
   }, [navigation]);
+
+  useEffect(() => {
+    if (cartState.cart.length === 0) {
+      dispatch(getCartRequest());
+    }
+  }, [cartState.cart.length, dispatch]);
 
   const arr = [
     {
-      title: `코카콜라 200ml`,
-      deliveryType: `니드온 배송상품`,
-      uri: `https://nimage.g-enews.com/phpwas/restmb_allidxmake.php?idx=5&simg=2019091115351801964e8b8a793f7210178107185.jpg`,
-      storeName: `coke`,
-      quantity: `1`,
+      title: '코카콜라 200ml',
+      deliveryType: '니드온 배송상품',
+      uri:
+        'https://nimage.g-enews.com/phpwas/restmb_allidxmake.php?idx=5&simg=2019091115351801964e8b8a793f7210178107185.jpg',
+      storeName: 'coke',
+      quantity: '1',
       price: 10000,
-      orderDay: `2020-10-06`,
+      orderDay: '2020-10-06',
     },
     {
-      title: `코카콜라 100ml`,
-      deliveryType: `니드온 배송상품`,
-      uri: `https://nimage.g-enews.com/phpwas/restmb_allidxmake.php?idx=5&simg=2019091115351801964e8b8a793f7210178107185.jpg`,
-      storeName: `coke`,
-      quantity: `1`,
+      title: '코카콜라 100ml',
+      deliveryType: '니드온 배송상품',
+      uri:
+        'https://nimage.g-enews.com/phpwas/restmb_allidxmake.php?idx=5&simg=2019091115351801964e8b8a793f7210178107185.jpg',
+      storeName: 'coke',
+      quantity: '1',
       price: 10000,
-      orderDay: `2020-10-06`,
+      orderDay: '2020-10-06',
     },
   ];
 
@@ -53,7 +72,9 @@ export default function Cart() {
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <CheckBox
             value={toggleCheckBox}
-            onValueChange={(newValue) => setToggleCheckBox(newValue)}
+            onValueChange={(newValue) => {
+              setToggleCheckBox(newValue);
+            }}
             tintColors={{ true: theme.highlight_pressable.background }}
           />
           <Text>전체 선택(1/1)</Text>
@@ -64,15 +85,19 @@ export default function Cart() {
           </View>
         </TouchableNativeFeedback>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
-        {arr.map((item, index) => (
-          <CartItem item={item} key={index} />
-        ))}
-        <CartResult />
-      </ScrollView>
+      {cartState.cartLoading ? (
+        <Loading />
+      ) : (
+        <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
+          {arr.map((item, index) => (
+            <CartItem item={item} key={index} />
+          ))}
+          <CartResult />
+        </ScrollView>
+      )}
       <BottomOneButton
         action={() => navigation.navigate('BuyForm')}
-        content={`37620원 주문하기`}
+        content={'37620원 주문하기'}
       />
     </>
   );

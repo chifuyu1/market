@@ -16,6 +16,7 @@ import { HomeHeader } from '../components/Header';
 import Product from '../components/Product';
 import { getProductsRequest } from '../reducer/product';
 import { theme } from '../config/config';
+import { dummy } from '../dummy/dummy';
 
 const MainScreens = ({ openDrawer }) => {
   let currentCount = useRef(false);
@@ -59,23 +60,21 @@ const MainScreens = ({ openDrawer }) => {
   }, [backAction]);
 
   useEffect(() => {
-    if (product.products.length === 0) {
-      dispatch(getProductsRequest());
-    }
-  }, [product, dispatch]);
+    dispatch(getProductsRequest());
+  }, [dispatch]);
 
-  // const useData = dummy;
   const styles = StyleSheet.create({
     loading: { justifyContent: 'center', alignItems: 'center' },
     listHeader: { marginVertical: 20, paddingLeft: 10 },
     listHeaderText: { fontSize: 20, fontWeight: 'bold' },
+    contentWrapper: { justifyContent: 'space-evenly' },
   });
   const numColumns = 2;
   return (
     <>
       <Header Component={HomeHeader} openDrawer={openDrawer} />
       <Category Component={CategoryHorizontal} />
-      {product.products.length === 0 ? (
+      {product.productsLoading ? (
         <ScrollView contentContainerStyle={styles.loading}>
           <ActivityIndicator
             size='large'
@@ -91,20 +90,20 @@ const MainScreens = ({ openDrawer }) => {
               discount={item.saleRate}
               uri={item.imageUrl}
               price={item.price}
-              title={item.title}
+              title={item.name}
               key={item.id}
             />
           )}
           keyExtractor={(item, index) => index.toString()}
           numColumns={numColumns}
+          columnWrapperStyle={styles.contentWrapper}
+          showsVerticalScrollIndicator={false}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
           ListHeaderComponent={() => (
             <Text style={styles.listHeaderText}>회원님을 위한 추천 상품</Text>
           )}
           ListHeaderComponentStyle={styles.listHeader}
-          showsVerticalScrollIndicator={false}
-          onRefresh={onRefresh}
-          refreshing={refreshing}
-          columnWrapperStyle={{ justifyContent: 'space-evenly' }}
         />
       )}
     </>

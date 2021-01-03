@@ -10,12 +10,17 @@ import {
   TouchableNativeFeedback,
   BackHandler,
   ToastAndroid,
+  ActivityIndicator,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import DrawerLayout from '../components/DrawerLayout';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 import Product from '../components/Product';
+import { commonStyles } from '../components/style/styles';
 import { theme } from '../config/config';
 import { favoritesItem } from '../dummy/dummy';
+import { getFavoritesRequest } from '../reducer/favorites';
 
 function FavoriteListHeader() {
   const navigation = useNavigation();
@@ -44,13 +49,29 @@ function FavoriteListHeader() {
 
 function FavoriteScreens({ openDrawer }) {
   const [refresh, setRefresh] = useState(false);
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.favorites);
+
+  const onRefresh = useCallback(() => {
+    setRefresh(false);
+  }, []);
+
+  const onTake = useCallback(() => dispatch(getFavoritesRequest()), [dispatch]);
+
+  useEffect(() => {
+    if (items.favorites.length === 0) {
+      onTake();
+    }
+  }, [items.favorites.length, onTake]);
 
   return (
     <>
       <Header title={'찜'} openDrawer={openDrawer} />
       <FavoriteListHeader />
-      <View style={styles.container}>
-        {favoritesItem.length !== 0 ? (
+      <>
+        {items.favoritesLoading ? (
+          <Loading />
+        ) : items.favorites.length !== 0 ? (
           <FlatList
             data={favoritesItem}
             renderItem={({ item }) => {
@@ -59,19 +80,17 @@ function FavoriteScreens({ openDrawer }) {
                   storeName={item.storeName}
                   discount={item.discount}
                   uri={item.uri}
-                  quantity={item.quantity}
                   price={item.price}
                   title={item.title}
-                  len={true}
                 />
               );
             }}
-            numColumns={2}
             keyExtractor={(item, index) => index.toString()}
+            numColumns={2}
+            columnWrapperStyle={{ justifyContent: 'space-evenly' }}
             showsVerticalScrollIndicator={false}
-            onRefresh={() => setRefresh((prev) => !prev)}
+            onRefresh={onRefresh}
             refreshing={refresh}
-            onr
           />
         ) : (
           <Product
@@ -84,7 +103,7 @@ function FavoriteScreens({ openDrawer }) {
             storeName={'No Data'}
           />
         )}
-      </View>
+      </>
     </>
   );
 }

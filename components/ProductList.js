@@ -45,7 +45,10 @@ export function ProductListSecond({ price, uri, options, title }) {
       <View style={styles.productImageContainer}>
         <Image source={{ uri }} style={styles.productImage} />
         <View style={{ justifyContent: 'space-around', marginLeft: 5 }}>
-          <Text numberOfLines={10}>{title}</Text>
+          {/* <Text numberOfLines={10}>{title}</Text> */}
+          <Text ellipsizeMode='tail'>
+            (무조건 2장!) 10컬러 가을부터 겨울까지 모두다 한꺼번에 드립니다
+          </Text>
           <Text>{price}</Text>
         </View>
       </View>
