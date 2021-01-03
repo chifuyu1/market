@@ -6,6 +6,7 @@ import {
   GET_COUPON_ERROR,
 } from '../reducer/coupon';
 
+// GET
 function getCouponsAPI() {
   return axios.get('/api/coupon');
 }

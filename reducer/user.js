@@ -2,9 +2,6 @@ import produce from 'immer';
 
 const user = {
   account: false,
-  boughtList: [], // 구매내역 or 결제내역
-  favoriteList: [], // 찜 목록
-  basket: [], // 장바구니
   loginLoading: false,
   loginDone: false,
   loginError: null,
@@ -13,77 +10,51 @@ const user = {
   logoutError: null,
 };
 
-export const KAKAO_LOGIN_REQUEST = 'USER/KAKAO_LOGIN_REQUEST';
-export const KAKAO_LOGIN_SUCCESS = `USER/KAKAO_LOGIN_SUCCESS`;
-export const KAKAO_LOGIN_ERROR = `USER/KAKAO_LOGIN_ERROR`;
+export const LOGIN_GOOGLE_REQUEST = 'USER/LOGIN_GOOGLE_REQUEST';
+export const LOGIN_GOOGLE_SUCCESS = 'USER/LOGIN_GOOGLE_SUCCESS';
+export const LOGIN_GOOGLE_ERROR = 'USER/LOGIN_GOOGLE_ERROR';
 
-export const GOOGLE_LOGIN_REQUEST = 'USER/GOOGLE_LOGIN_REQUEST';
-export const GOOGLE_LOGIN_SUCCESS = `USER/GOOGLE_LOGIN_SUCCESS`;
-export const GOOGLE_LOGIN_ERROR = `USER/GOOGLE_LOGIN_ERROR`;
-
-export const KAKAO_LOGOUT_REQUEST = 'USER/KAKAO_LOGOUT_REQUEST';
-export const KAKAO_LOGOUT_SUCCESS = `USER/KAKAO_LOGOUT_SUCCESS`;
-export const KAKAO_LOGOUT_ERROR = `USER/KAKAO_LOGOUT_ERROR`;
-
-export const GOOGLE_LOGOUT_REQUEST = 'USER/GOOGLE_LOGOUT_REQUEST';
-export const GOOGLE_LOGOUT_SUCCESS = `USER/GOOGLE_LOGOUT_SUCCESS`;
-export const GOOGLE_LOGOUT_ERROR = `USER/GOOGLE_LOGOUT_ERROR`;
-
-export const kakaoLoginRequest = () => ({
-  type: KAKAO_LOGIN_REQUEST,
-});
+export const LOGOUT_GOOGLE_REQUEST = 'USER/LOGOUT_GOOGLE_REQUEST';
+export const LOGOUT_GOOGLE_SUCCESS = 'USER/LOGOUT_GOOGLE_SUCCESS';
+export const LOGOUT_GOOGLE_ERROR = 'USER/LOGOUT_GOOGLE_ERROR';
 
 export const googleLoginRequest = () => ({
-  type: GOOGLE_LOGIN_REQUEST,
-});
-
-export const kakaoLogoutRequest = () => ({
-  type: KAKAO_LOGOUT_REQUEST,
+  type: LOGIN_GOOGLE_REQUEST,
 });
 
 export const googleLogoutRequest = () => ({
-  type: GOOGLE_LOGOUT_REQUEST,
-});
-
-export const kakaoLoginSuccess = () => ({
-  type: KAKAO_LOGIN_SUCCESS,
+  type: LOGOUT_GOOGLE_REQUEST,
 });
 
 const userReducer = (state = user, action) =>
   produce(state, (draft) => {
     switch (action.type) {
-      // login kakao
-      case KAKAO_LOGIN_REQUEST:
-      case GOOGLE_LOGIN_REQUEST:
+      // login
+      case LOGIN_GOOGLE_REQUEST:
         draft.loginLoading = true;
         draft.loginDone = false;
         draft.loginError = null;
         break;
-      case KAKAO_LOGIN_SUCCESS:
-      case GOOGLE_LOGIN_SUCCESS:
+      case LOGIN_GOOGLE_SUCCESS:
         draft.loginLoading = false;
         draft.loginDone = true;
         draft.account = true;
         break;
-      case KAKAO_LOGIN_ERROR:
-      case GOOGLE_LOGIN_ERROR:
+      case LOGIN_GOOGLE_ERROR:
         draft.loginLoading = false;
         draft.loginError = action.error;
         break;
-      // logout kakao
-      case KAKAO_LOGOUT_REQUEST:
-      case GOOGLE_LOGOUT_REQUEST:
+      // logout
+      case LOGOUT_GOOGLE_REQUEST:
         draft.logoutLoading = true;
         draft.logoutDone = true;
         break;
-      case KAKAO_LOGOUT_SUCCESS:
-      case GOOGLE_LOGOUT_SUCCESS:
+      case LOGOUT_GOOGLE_SUCCESS:
         draft.logoutLoading = false;
         draft.logoutDone = true;
         draft.account = null;
         break;
-      case KAKAO_LOGOUT_ERROR:
-      case GOOGLE_LOGOUT_ERROR:
+      case LOGOUT_GOOGLE_ERROR:
         draft.logoutLoading = false;
         draft.logoutDone = false;
         draft.logoutError = action.error;

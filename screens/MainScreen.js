@@ -86,12 +86,12 @@ const MainScreens = ({ openDrawer }) => {
           data={product.products}
           renderItem={({ item }) => (
             <Product
-              storeName={item.author}
-              discount={item.saleRate}
-              uri={item.imageUrl}
-              price={item.price}
-              title={item.name}
               key={item.id}
+              title={item.name}
+              price={item.price}
+              discount={item.saleRate}
+              storeName={item.author}
+              image={item.image}
             />
           )}
           keyExtractor={(item, index) => index.toString()}

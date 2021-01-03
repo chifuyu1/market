@@ -12,11 +12,15 @@ import { theme } from '../../config/config';
 import PurchasePopup from '../product/PurchasePopup';
 import Quantity from '../product/Quantity';
 import { ProductListSecond } from '../ProductList';
+import { useDispatch, useSelector } from 'react-redux';
+import { addSelectedList, deleteSelectedList } from '../../reducer/cart';
 
 export default React.memo(function CartItem({ item }) {
   const [checkBox, setCheckBox] = useState(false);
   const [option, setOption] = useState(false);
   const [quantity, setQuantity] = useState(false);
+  const cartState = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.product}>
@@ -28,8 +32,20 @@ export default React.memo(function CartItem({ item }) {
       <View style={styles.productContentContainer}>
         <View style={{ marginRight: 10 }}>
           <CheckBox
-            value={checkBox}
-            onValueChange={(newValue) => setCheckBox(newValue)}
+            value={
+              cartState.selectedList.find((value) => value === item.id)
+                ? true
+                : false
+            }
+            onValueChange={(newValue) => {
+              if (newValue === true) {
+                dispatch(addSelectedList(item.id));
+              }
+              if (newValue === false) {
+                dispatch(deleteSelectedList(item.id));
+              }
+              setCheckBox(newValue);
+            }}
             tintColors={{ true: theme.highlight_pressable.background }}
           />
         </View>

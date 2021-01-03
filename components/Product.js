@@ -11,26 +11,26 @@ import { useNavigation } from '@react-navigation/native';
 import { theme } from '../config/config';
 
 function Product(info) {
-  const { uri, discount, price, storeName, title } = info;
   const navigation = useNavigation();
   const moveProductInfo = useCallback(
     () => navigation.navigate('ProductInfo', { info }),
     [navigation, info],
   );
-  // ...[len ? { flex: 1 } : {}]
+  const { image, discount, price, storeName, title } = info;
+
   return (
     <TouchableNativeFeedback onPress={moveProductInfo}>
       <View style={[styles.container]}>
-        {uri ? (
+        {image ? (
           <Image
             source={{
-              uri,
+              uri: image,
             }}
             style={styles.image}
             resizeMode={'cover'}
           />
         ) : (
-          <View style={styles.noData}>
+          <View style={[styles.image, styles.noData]}>
             <Text>No Data</Text>
           </View>
         )}

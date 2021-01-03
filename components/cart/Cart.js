@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -6,17 +6,21 @@ import {
   ScrollView,
   TouchableNativeFeedback,
   BackHandler,
-  ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
 import { theme } from '../../config/config';
-import BottomOneButton from '../BottomOneButton';
+import BottomTwoButton from '../BottomTwoButton';
 import CartItem from './CartItem';
 import CartResult from './CartResult';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCartRequest } from '../../reducer/cart';
-import { commonStyles } from '../style/styles';
+import {
+  getCartRequest,
+  addAllSelectedList,
+  deleteAllSelectedList,
+  deleteCartRequest,
+} from '../../reducer/cart';
 import Loading from '../Loading';
 
 export default function Cart() {
@@ -24,6 +28,16 @@ export default function Cart() {
   const navigation = useNavigation();
   const cartState = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  const onDelete = useCallback(() => {
+    if (cartState.selectedList.length === 0) {
+      Alert.alert('오류', '상품을 선택해주세요', [
+        { text: '네', style: 'default', onPress: () => null },
+      ]);
+    } else {
+      return dispatch(deleteCartRequest([...cartState.selectedList]));
+    }
+  }, [dispatch, cartState.selectedList]);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', () => {
@@ -45,6 +59,7 @@ export default function Cart() {
 
   const arr = [
     {
+      id: 1,
       title: '코카콜라 200ml',
       deliveryType: '니드온 배송상품',
       uri:
@@ -55,6 +70,7 @@ export default function Cart() {
       orderDay: '2020-10-06',
     },
     {
+      id: 2,
       title: '코카콜라 100ml',
       deliveryType: '니드온 배송상품',
       uri:
@@ -73,6 +89,18 @@ export default function Cart() {
           <CheckBox
             value={toggleCheckBox}
             onValueChange={(newValue) => {
+              // check
+              if (newValue) {
+                dispatch(
+                  addAllSelectedList(
+                    cartState.cart.map((element) => element.id),
+                  ),
+                );
+              }
+              // uncheck
+              if (!newValue) {
+                dispatch(deleteAllSelectedList());
+              }
               setToggleCheckBox(newValue);
             }}
             tintColors={{ true: theme.highlight_pressable.background }}
@@ -89,15 +117,18 @@ export default function Cart() {
         <Loading />
       ) : (
         <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
+          {/* {cartState.selectedList.map()} */}
           {arr.map((item, index) => (
             <CartItem item={item} key={index} />
           ))}
           <CartResult />
         </ScrollView>
       )}
-      <BottomOneButton
-        action={() => navigation.navigate('BuyForm')}
-        content={'37620원 주문하기'}
+      <BottomTwoButton
+        actionLeft={onDelete}
+        contentLeft={'선택한 상품 삭제'}
+        actionRight={() => navigation.navigate('BuyForm')}
+        contentRight={'37620원 주문하기'}
       />
     </>
   );

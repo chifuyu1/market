@@ -6,6 +6,7 @@ import productSaga from './product';
 import couponSaga from './coupon';
 import favoritesSaga from './favorites';
 import cartSaga from './cart';
+import orderSaga from './order';
 
 axios.defaults.baseURL = baseURL;
 axios.defaults.withCredentials = true;
@@ -17,5 +18,6 @@ export default function* rootSaga() {
     fork(couponSaga),
     fork(favoritesSaga),
     fork(cartSaga),
+    fork(orderSaga),
   ]);
 }

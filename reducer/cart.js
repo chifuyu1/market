@@ -1,7 +1,8 @@
 import produce from 'immer';
 
 const cart = {
-  cart: [],
+  cart: [1, 2],
+  selectedList: [2],
   getCartLoading: false,
   getCartDone: false,
   getCartError: null,
@@ -25,6 +26,11 @@ export const DELETE_CART_REQUEST = 'CART/DELETE_CART_REQUEST';
 export const DELETE_CART_SUCCESS = 'CART/DELETE_CART_SUCCESS';
 export const DELETE_CART_ERROR = 'CART/DELETE_CART_ERROR';
 
+export const ADD_SELECTED_LIST = 'CART/ADD_SELECTED_LIST';
+export const DELETE_SELECTED_LIST = 'CART/DELETE_SELECTED_LIST';
+export const ADD_ALL_SELECTED_LIST = 'CART/ADD_ALL_SELECTED_LIST';
+export const DELETE_ALL_SELECTED_LIST = 'CART/DELETE_ALL_SELECTED_LIST';
+
 export const getCartRequest = () => ({
   type: GET_CART_REQUEST,
 });
@@ -32,6 +38,30 @@ export const getCartRequest = () => ({
 export const addCartRequest = (data) => ({
   type: ADD_CART_REQUEST,
   data,
+});
+
+export const deleteCartRequest = (data) => ({
+  type: DELETE_CART_REQUEST,
+  data,
+});
+
+export const addSelectedList = (id) => ({
+  type: ADD_SELECTED_LIST,
+  id,
+});
+
+export const addAllSelectedList = (array) => ({
+  type: ADD_ALL_SELECTED_LIST,
+  array,
+});
+
+export const deleteSelectedList = (id) => ({
+  type: DELETE_SELECTED_LIST,
+  id,
+});
+
+export const deleteAllSelectedList = () => ({
+  type: DELETE_ALL_SELECTED_LIST,
 });
 
 export default function cartReducer(state = cart, action) {
@@ -79,6 +109,20 @@ export default function cartReducer(state = cart, action) {
         draft.deleteCartLoading = false;
         draft.deleteCartDone = false;
         draft.deleteCartError = action.error;
+        break;
+      case ADD_SELECTED_LIST:
+        draft.selectedList = draft.selectedList.concat(action.id).sort();
+        break;
+      case DELETE_SELECTED_LIST:
+        draft.selectedList = draft.selectedList.filter(
+          (element) => element !== action.id,
+        );
+        break;
+      case ADD_ALL_SELECTED_LIST:
+        draft.selectedList = action.array;
+        break;
+      case DELETE_ALL_SELECTED_LIST:
+        draft.selectedList = draft.cart.filter((element) => element === -1);
         break;
       default:
         break;
