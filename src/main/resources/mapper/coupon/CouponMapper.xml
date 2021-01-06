@@ -3,10 +3,10 @@
 
 <mapper namespace="com.market.app.dao.CouponDAO">
     <select id="findMyCouponByMemberId" parameterType="Integer" resultType="com.market.app.service.dto.CouponResponseDto">
-        SELECT pt.title AS couponName,
-               c.title AS saleType,
-               c.sale AS saleRate,
-               mc.use_yn AS isUse
+        SELECT pt.product_type_name AS couponName,
+               c.coupon_name AS saleType,
+               c.coupon_sale_rate AS saleRate,
+               mc.my_coupon_use_yn AS isUse
         FROM MEMBER m
              INNER JOIN
              MY_COUPON mc
@@ -17,6 +17,6 @@
              INNER JOIN
              PRODUCT_TYPE pt
              ON pt.product_type_id  = c.product_type_id
-        WHERE m.member_id  = #{memberId}
+        WHERE m.member_id = #{memberId}
     </select>
 </mapper>
