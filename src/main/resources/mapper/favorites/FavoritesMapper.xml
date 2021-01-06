@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.market.app.dao.FavoritesDAO">
+    <select id="findFavoritesByMemberId" parameterType="Integer" resultType="com.market.app.service.dto.FavoritesResponseDto">
+        SELECT  p.product_id as productId,
+                p.product_name as productName,
+                p.product_sale_rate as productSaleRate,
+                pd.product_detail_color as productColor,
+                pd.product_detail_gender as productGender,
+                pd.product_detail_image as productImage,
+                pd.product_detail_size as productSize
+        FROM    FAVORITES f
+                INNER JOIN
+                PRODUCT p
+                ON p.product_id = f.product_id
+                INNER JOIN
+                PRODUCT_DETAIL pd
+                ON p.product_id = pd.product_id
+        WHERE   f.member_id = #{memberId}
+    </select>
+</mapper>
