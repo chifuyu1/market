@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 
 <mapper namespace="com.market.app.dao.FavoritesDAO">
+    <!-- 찜 조회 -->
     <select id="findFavoritesByMemberId" parameterType="Integer" resultType="com.market.app.service.dto.FavoritesResponseDto">
         SELECT  p.product_id as productId,
                 p.product_name as productName,
@@ -19,4 +20,23 @@
                 ON p.product_id = pd.product_id
         WHERE   f.member_id = #{memberId}
     </select>
+    <!-- 찜 등록 -->
+    <insert id="insertFavorites" parameterType="com.market.app.web.dto.FavoritesRequestDto">
+        INSERT INTO FAVORITES(
+            favorites_id,
+            member_id,
+            product_id
+        )
+        VALUES(
+            #{favoritesId},
+            #{memberId},
+            #{productId}
+        )
+    </insert>
+    <!-- 찜 삭제 -->
+    <delete id="deleteByFavoritesIdAndMemberId" parameterType="com.market.app.web.dto.FavoritesRequestDto">
+        DELETE FROM FAVORITES
+        WHERE favorites_id = #{favoritesId}
+          AND member_id = #{memberId}
+    </delete>
 </mapper>
