@@ -22,4 +22,12 @@ public class ProductDAOTests {
     public void 상품_삭제_테스트() throws Exception {
         log.info(productDAO.deleteProduct(1).toString());
     }
+    @Test
+    public void 상품_입력_테스트() throws Exception {
+
+    }
+    @Test
+    public void 상품_상세_입력_테스트() throws Exception {
+
+    }
 }
