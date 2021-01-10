@@ -3,7 +3,8 @@
 
 <mapper namespace="com.market.app.dao.CouponDAO">
     <select id="findMyCouponByMemberId" parameterType="Integer" resultType="com.market.app.service.dto.CouponResponseDto">
-        SELECT pt.product_type_name AS couponName,
+        SELECT mc.my_coupon_id as myCouponId,
+               pt.product_type_name AS couponName,
                c.coupon_name AS saleType,
                c.coupon_sale_rate AS saleRate,
                mc.my_coupon_use_yn AS isUse

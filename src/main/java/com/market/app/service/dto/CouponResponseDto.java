@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @Getter
 public class CouponResponseDto {
-    private String couponId;
+    private String myCouponId;
     private String couponName;
     private String saleType;
     private String saleRate;
