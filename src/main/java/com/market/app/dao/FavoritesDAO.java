@@ -21,11 +21,11 @@ public interface FavoritesDAO {
 
     /**
      * 찜 삭제
-     * @param requestDto 찜 요청 dto
+     * @param favoritesId 찜 아이디
      * @return 처리 row count
      * @throws Exception
      */
-    Integer deleteByFavoritesIdAndMemberId(FavoritesRequestDto requestDto) throws Exception;
+    Integer deleteByFavoritesId(Integer favoritesId) throws Exception;
 
     /**
      * 찜 등록

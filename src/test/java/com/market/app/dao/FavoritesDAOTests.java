@@ -36,6 +36,6 @@ public class FavoritesDAOTests {
                 .memberId(1)
                 .build();
 
-        dao.deleteByFavoritesIdAndMemberId(requestDto);
+        dao.deleteByFavoritesId(1);
     }
 }

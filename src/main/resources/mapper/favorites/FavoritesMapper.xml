@@ -12,9 +12,6 @@
                 INNER JOIN
                 PRODUCT p
                 ON p.product_id = f.product_id
-                INNER JOIN
-                PRODUCT_DETAIL pd
-                ON p.product_id = pd.product_id
         WHERE   f.member_id = #{memberId}
     </select>
     <!-- 찜 등록 -->
@@ -31,9 +28,8 @@
         )
     </insert>
     <!-- 찜 삭제 -->
-    <delete id="deleteByFavoritesIdAndMemberId" parameterType="com.market.app.web.dto.FavoritesRequestDto">
+    <delete id="deleteByFavoritesId" parameterType="Integer">
         DELETE FROM FAVORITES
         WHERE favorites_id = #{favoritesId}
-          AND member_id = #{memberId}
     </delete>
 </mapper>
