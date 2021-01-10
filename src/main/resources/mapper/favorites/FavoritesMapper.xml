@@ -7,10 +7,7 @@
         SELECT  p.product_id as productId,
                 p.product_name as productName,
                 p.product_sale_rate as productSaleRate,
-                pd.product_detail_color as productColor,
-                pd.product_detail_gender as productGender,
-                pd.product_detail_image as productImage,
-                pd.product_detail_size as productSize
+                p.product_image as productImage
         FROM    FAVORITES f
                 INNER JOIN
                 PRODUCT p

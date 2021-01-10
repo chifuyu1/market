@@ -14,5 +14,5 @@ public class FavoritesResponseDto {
     private String productColor;
     private String productGender;
     private String productImage;
-    private Integer productSize;
+    private String productSize;
 }

@@ -17,7 +17,7 @@ public class FavoritesDAOTests {
 
     @Test
     public void 찜_목록_조회_테스트() throws Exception {
-        dao.findFavoritesByMemberId(1);
+        dao.findFavoritesByMemberId(2);
     }
     @Test
     public void 찜_등록_테스트() throws Exception {

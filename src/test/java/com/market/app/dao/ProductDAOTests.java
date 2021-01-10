@@ -18,4 +18,8 @@ public class ProductDAOTests {
     public void 현재시간_조회_테스트() throws Exception {
         log.info(productDAO.selectNow());
     }
+    @Test
+    public void 상품_삭제_테스트() throws Exception {
+        log.info(productDAO.deleteProduct(1).toString());
+    }
 }

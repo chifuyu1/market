@@ -6,4 +6,45 @@
         select now()
         from dual
     </select>
+    <delete id="deleteProduct" parameterType="Integer">
+        DELETE FROM PRODUCT
+        WHERE product_id = #{productId}
+    </delete>
+    <select id="insertProductDetail">
+        INSERT INTO PRODUCT_DETAIL
+        (
+            product_id,
+            product_detail_image,
+            product_detail_thumbnail,
+            product_detail_color,
+            product_detail_size,
+            product_detail_gender
+        )
+        VALUES
+        (
+            #{productId},
+            #{productDetailImage},
+            #{productDetailThumbnail},
+            #{productDetailColor},
+            #{productDetailSize},
+            #{productDetailGender}
+        )
+    </select>
+    <select id="insertProduct">
+        INSERT INTO PRODUCT
+        (
+            product_type_id,
+            product_name,
+            product_price,
+            product_sale_rate,
+            seller_id
+        )
+        VALUES(
+            #{productTypeId},
+            #{productName},
+            #{productPrice},
+            #{productSaleRate},
+            #{sellerId}
+        )
+    </select>
 </mapper>
