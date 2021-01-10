@@ -24,8 +24,8 @@ public interface CartDAO {
 
     /**
      * 등록된 장바구니 삭제
-     * @param requestDto cartId and memberId
+     * @param cartId cartId and memberId
      * @return 처리 row count
      */
-    Integer deleteCartByCartIdAndMemberId(CartRequestDto requestDto);
+    Integer deleteCartByCartId(Integer cartId);
 }

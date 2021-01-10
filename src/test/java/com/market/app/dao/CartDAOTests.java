@@ -36,12 +36,6 @@ public class CartDAOTests {
     @Test
     public void 찜_삭제_테스트(){
         Integer cartId = 1;
-        Integer memberId = 1;
-        CartRequestDto requestDto = CartRequestDto.builder()
-                .cartId(cartId)
-                .memberId(memberId)
-                .build();
-
-        dao.deleteCartByCartIdAndMemberId(requestDto);
+        dao.deleteCartByCartId(cartId);
     }
 }
