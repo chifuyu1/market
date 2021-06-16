@@ -1,0 +1,103 @@
+export const dummy = [
+  {
+    id: 1,
+    uri: 'https://img.hani.co.kr/imgdb/resize/2017/0724/00500578_20170724.JPG',
+    name: '[필수템!]몸매좋아보이는 쫀쫀한 브이넥 니트',
+    discount: '30%',
+    price: 1390124123120,
+    storeName: '라뷰마켓',
+    title: '마이너스 3인치 파워 압박 스타킹 45D',
+    quantity: '12,166개 구매중',
+  },
+  {
+    id: 2,
+    uri: 'https://img.hani.co.kr/imgdb/resize/2017/0724/00500578_20170724.JPG',
+    name: '마이너스 3인치 파워 압박 스타킹 45D',
+    discount: '30%',
+    price: 13900,
+    storeName: '라뷰마켓',
+    title: '마이너스 3인치 파워 압박 스타킹 45D',
+    quantity: '12,166개 구매중',
+  },
+  {
+    id: 3,
+    uri: 'https://img.hani.co.kr/imgdb/resize/2017/0724/00500578_20170724.JPG',
+    name: '[필수템!]몸매좋아보이는 쫀쫀한 브이넥 니트',
+    discount: '30%',
+    price: 13900,
+    storeName: '라뷰마켓',
+    title: '(무조건 2장!) 10컬러 가을부터 겨울까지 모두다 한꺼번에 드립니다',
+    quantity: '12,166개 구매중',
+  },
+  {
+    id: 4,
+    uri: 'https://img.hani.co.kr/imgdb/resize/2017/0724/00500578_20170724.JPG',
+    name: '[필수템!]몸매좋아보이는 쫀쫀한 브이넥 니트',
+    discount: '30%',
+    price: 13900,
+    storeName: '라뷰마켓',
+    title: '(무조건 2장!) 10컬러 가을부터 겨울까지 모두다 한꺼번에 드립니다',
+    quantity: '12,166개 구매중',
+  },
+  {
+    id: 5,
+    uri: 'https://img.hani.co.kr/imgdb/resize/2017/0724/00500578_20170724.JPG',
+    name: '[필수템!]몸매좋아보이는 쫀쫀한 브이넥 니트',
+    discount: '30%',
+    price: 13900,
+    storeName: '라뷰마켓',
+    title: '(무조건 2장!) 10컬러 가을부터 겨울까지 모두다 한꺼번에 드립니다',
+    quantity: '12,166개 구매중',
+  },
+  {
+    id: 6,
+    uri: 'https://img.hani.co.kr/imgdb/resize/2017/0724/00500578_20170724.JPG',
+    name: '[필수템!]몸매좋아보이는 쫀쫀한 브이넥 니트',
+    discount: '30%',
+    price: 139001235123123,
+    storeName: '라뷰마켓',
+    title: '(무조건 2장!) 10컬러 가을부터 겨울까지 모두다 한꺼번에 드립니다',
+    quantity: '12,166개 구매중',
+  },
+];
+
+export const categories = [
+  { name: '이벤트', iconName: 'event' },
+  { name: '핸드메이드', iconName: 'handmade' },
+  { name: '아우터', iconName: 'outer' },
+  { name: '상의', iconName: 'shirt' },
+  { name: '하의', iconName: 'lower' },
+  { name: '신발', iconName: 'shoes' },
+  { name: '속옷', iconName: 'underwear' },
+  { name: '액세서리', iconName: 'accessories' },
+  { name: '트레이닝', iconName: 'training' },
+];
+
+export const womans = [
+  { name: '원피스', iconName: 'onepiece' },
+  { name: '치마', iconName: 'skirt' },
+  { name: '주얼리', iconName: 'jewelry' },
+];
+
+export const favoritesItem = [
+  {
+    id: 1,
+    uri: 'https://img.hani.co.kr/imgdb/resize/2017/0724/00500578_20170724.JPG',
+    name: '[필수템!]몸매좋아보이는 쫀쫀한 브이넥 니트',
+    discount: '30%',
+    price: 13900,
+    storeName: '라뷰마켓',
+    title: '(무조건 2장!) 10컬러 가을부터 겨울까지 모두다 한꺼번에 드립니다',
+    quantity: '12,166개 구매중',
+  },
+  {
+    id: 2,
+    uri: 'https://img.hani.co.kr/imgdb/resize/2017/0724/00500578_20170724.JPG',
+    name: '[필수템!]몸매좋아보이는 쫀쫀한 브이넥 니트',
+    discount: '30%',
+    price: 13900,
+    storeName: '라뷰마켓',
+    title: '(무조건 2장!) 10컬러 가을부터 겨울까지 모두다 한꺼번에 드립니다',
+    quantity: '12,166개 구매중',
+  },
+];
